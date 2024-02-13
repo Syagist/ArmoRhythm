@@ -9,10 +9,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const track_controller_1 = require("./track.controller");
 const track_service_1 = require("./track.service");
+const mongoose_1 = require("@nestjs/mongoose");
+const track_schema_1 = require("./schemas/track.schema");
+const comment_schema_1 = require("./schemas/comment.schema");
 let TrackModule = class TrackModule {
 };
 TrackModule = __decorate([
     (0, common_1.Module)({
+        imports: [
+            mongoose_1.MongooseModule.forFeature([{ name: track_schema_1.Track.name, schema: track_schema_1.TrackSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: comment_schema_1.Comment.name, schema: comment_schema_1.CommentSchema }])
+        ],
         controllers: [track_controller_1.TrackController],
         providers: [track_service_1.TrackService]
     })

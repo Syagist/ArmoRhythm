@@ -22,15 +22,17 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { HydratedDocument } from 'mongoose';
+import { Track } from "./track.schema";
+import { HydratedDocument, Types } from 'mongoose';
 export type CommentDocument = HydratedDocument<Comment>;
 export declare class Comment {
     id: number;
     username: string;
     text: string;
+    track: Track;
 }
 export declare const CommentSchema: import("mongoose").Schema<Comment, import("mongoose").Model<Comment, any, any, any, import("mongoose").Document<unknown, any, Comment> & Comment & {
-    _id: import("mongoose").Types.ObjectId;
+    _id: Types.ObjectId;
 }, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Comment, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Comment>> & import("mongoose").FlatRecord<Comment> & {
-    _id: import("mongoose").Types.ObjectId;
+    _id: Types.ObjectId;
 }>;

@@ -1,6 +1,3 @@
-import { OnModuleInit } from "@nestjs/common";
-export declare class AppModule implements OnModuleInit {
+export declare class AppModule {
     constructor();
-    onModuleInit(): void;
-    connectToMongo(): Promise<void>;
 }

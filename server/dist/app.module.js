@@ -12,27 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const track_module_1 = require("./track/track.module");
-const mongoose_1 = require("mongoose");
+const mongoose_1 = require("@nestjs/mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
 let AppModule = class AppModule {
     constructor() {
-    }
-    onModuleInit() {
-        this.connectToMongo();
-    }
-    async connectToMongo() {
-        try {
-            await mongoose_1.default.connect(process.env.MONGO_URL, {});
-            console.log('Connected to MongoDB');
-        }
-        catch (error) {
-            console.error('Error connecting to MongoDB:', error);
-        }
     }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            mongoose_1.MongooseModule.forRoot(process.env.MONGO_URL),
             track_module_1.default
         ],
     }),
