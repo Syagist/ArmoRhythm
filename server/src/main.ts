@@ -1,7 +1,9 @@
 import {NestFactory} from "@nestjs/core";
 import {AppModule} from "./app.module";
 import * as process from "process";
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 const start = async () => {
     try {
         const PORT = process.env.PORT || 5000;
