@@ -5,25 +5,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
-let AppService = class AppService {
-    getUsers() {
-        return 'GET ALL USERS';
-    }
+const track_controller_1 = require("./track.controller");
+const track_service_1 = require("./track.service");
+let TrackModule = class TrackModule {
 };
-exports.AppService = AppService;
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppService.prototype, "getUsers", null);
-exports.AppService = AppService = __decorate([
-    (0, common_1.Injectable)()
-], AppService);
-//# sourceMappingURL=app.service.js.map
+TrackModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [track_controller_1.TrackController],
+        providers: [track_service_1.TrackService]
+    })
+], TrackModule);
+exports.default = TrackModule;
+//# sourceMappingURL=track.module.js.map
