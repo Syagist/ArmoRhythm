@@ -24,8 +24,8 @@ export class TrackService {
             {...dto, listens: 0, audio: audioPath, picture: picturePath})
     }
 
-    async getAll(): Promise<Track[]> {
-        return this.trackModel.find();
+    async getAll(count = 10, offset = 0): Promise<Track[]> {
+        return this.trackModel.find().skip(offset).limit(count);
     }
 
     async getOne(id: ObjectId) {
@@ -45,5 +45,18 @@ export class TrackService {
         track.comments.push(comment._id)
         await track.save();
         return comment;
+    }
+
+    async listen(id: ObjectId) {
+        const track = await this.trackModel.findById(id);
+        track.listens++;
+        await track.save();
+    }
+
+    async search(query: string): Promise<Track[]> {
+        const track = await this.trackModel.find(
+            {name: {$regex: new RegExp(query,'i')}}
+        );
+        return track;
     }
 }
