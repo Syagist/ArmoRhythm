@@ -1,3 +1,5 @@
+import {Button} from "@mui/material";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={'init-state'}><div>init-state</div></body>
+      <body className={'init-state'}><div><Button>Material</Button></div></body>
     </html>
   );
 }
