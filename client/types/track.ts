@@ -18,6 +18,7 @@ export interface TrackState {
 
 export interface TrackProps {
     track: ITrack;
+    active?:boolean;
 }
 
 
