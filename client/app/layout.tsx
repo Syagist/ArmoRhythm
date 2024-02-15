@@ -1,13 +1,11 @@
-import {Button} from "@mui/material";
+"use client"
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className={'init-state'}><div><Button>Material</Button></div></body>
-    </html>
-  );
+export default function RootLayout({children}: { children: React.ReactNode }) {
+    return (
+        <html lang="en">
+        <body>
+            {children}
+        </body>
+        </html>
+    )
 }
