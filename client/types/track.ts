@@ -1,4 +1,8 @@
-import {IComment} from "@/types/comment";
+export interface IComment {
+    _id: string;
+    username: string;
+    text: string
+}
 
 export interface ITrack {
     _id: string;
@@ -14,16 +18,6 @@ export interface ITrack {
 export interface TrackState {
     tracks: ITrack[];
     error: string;
-}
-
-export interface TrackProps {
-    track: ITrack;
-    active?:boolean;
-}
-
-
-export interface TrackListProps {
-    tracks: ITrack[];
 }
 
 export enum TrackActionTypes {

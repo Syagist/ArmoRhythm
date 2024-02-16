@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import MainLayout from "@/layouts/MainLayout";
-import StepWrapper from "@/components/StepWrapper";
-import {Button, Grid, TextField} from "@mui/material";
-import FileUpload from "@/components/FileUpload";
-import {useInput} from "@/hooks/useInput";
+import MainLayout from "../../layouts/MainLayout";
+import StepWrapper from "../../components/StepWrapper";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import FileUpload from "../../components/FileUpload";
+import {useInput} from "../../hooks/useInput";
 import axios from "axios";
 import {useRouter} from "next/router";
 
@@ -40,43 +42,42 @@ const Create = () => {
         <MainLayout>
             <StepWrapper activeStep={activeStep}>
                 {activeStep === 0 &&
-                    <Grid container direction={"column"} style={{padding: 20}}>
-                        <TextField
-                            {...name}
-                            style={{marginTop: 10}}
-                            label={"Название трека"}
-                        />
-                        <TextField
-                            {...artist}
-                            style={{marginTop: 10}}
-                            label={"Имя исполнителя"}
-                        />
-                        <TextField
-                            {...text}
-                            style={{marginTop: 10}}
-                            label={"Слова к треку"}
-                            multiline
-                            rows={3}
-                        />
-                    </Grid>
+                <Grid container direction={"column"} style={{padding: 20}}>
+                    <TextField
+                        {...name}
+                        style={{marginTop: 10}}
+                        label={"Track name"}
+                    />
+                    <TextField
+                        {...artist}
+                        style={{marginTop: 10}}
+                        label={"Artist name"}
+                    />
+                    <TextField
+                        {...text}
+                        style={{marginTop: 10}}
+                        label={"Lyrics"}
+                        multiline
+                        rows={3}
+                    />
+                </Grid>
                 }
                 {activeStep === 1 &&
-                    <FileUpload setFile={setPicture} accept="image/*">
-                        <Button>Загрузить изображение</Button>
-                    </FileUpload>
+                <FileUpload setFile={setPicture} accept="image/*">
+                    <Button>Upload cover</Button>
+                </FileUpload>
                 }
                 {activeStep === 2 &&
-                    <FileUpload setFile={setAudio} accept="audio/*">
-                        <Button>Загрузить аудио</Button>
-                    </FileUpload>
+                <FileUpload setFile={setAudio} accept="audio/*">
+                    <Button>Upload music file</Button>
+                </FileUpload>
                 }
             </StepWrapper>
             <Grid container justifyContent='space-between'>
-                <Button disabled={activeStep === 0} onClick={back}>Назад</Button>
-                <Button onClick={next}>Далее</Button>
+                <Button disabled={activeStep === 0} onClick={back}>Back</Button>
+                <Button onClick={next}>Next</Button>
             </Grid>
         </MainLayout>
-
     );
 };
 

@@ -1,44 +1,51 @@
-import React from 'react';
-import {ITrack} from "@/types/track";
-import {Button, useInput} from "@mui/base";
-import {Grid, TextField} from "@mui/material";
-import {useRouter} from "next/navigation";
-import MainLayout from "@/layouts/mainLayout";
+import React, {useState} from 'react';
+import {ITrack} from "../../types/track";
+import MainLayout from "../../layouts/MainLayout";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import {useRouter} from "next/router";
+import {GetServerSideProps} from "next";
+import axios from "axios";
+import {useInput} from "../../hooks/useInput";
 
-const track: ITrack =
-    {
-        "_id": 1,
-        "name": "Bella Ciao",
-        "artist": "Delia ",
-        "text": "O bella ciao, bella ciao, bella ciao ciao ciao\nUna mattina mi sono alzato\nE ho trovato l'invasor\nO partigiano portami via\nO bella ciao, bella ciao, bella ciao ciao ciao\nO partigiano portami via\nChe mi sento di morir, ir, ir-\nO partigiano\nMorir, ir, ir\nMorir-ir\nMorir-ir\nO bella ciao, bella ciao, bella ciao ciao ciao\nO partigiano, giano -ir\nO partigiano, giano -ir\nMorir, Morir\nBella ciao, bella ciao, bella ciao ciao ciao\nO partigiano\nO bella ciao, bella ciao, bella ciao ciao ciao\nE se muoio da partigiano\nTu mi devi seppellir\nE seppellire lassù in montagna\nO bella ciao, bella ciao, bella ciao ciao ciao\nE seppellire lassù in montagna\nSotto l'ombra di un bel fior, fior, fior\nO partigiano\n-Ir, morir, morir, morir\nBella ciao, bella ciao, bella ciao ciao ciao\nO partigiano, giano -ir\nO partigiano, giano -ir\nBella ciao, bella ciao, bella ciao ciao ciao",
-        "listens": 0,
-        "picture": "image/6a6b1253-d1c2-4ccf-a862-145e160dd920.png",
-        "audio": "audio/51f8877d-4374-41ba-89ae-6fea976890e4.mp3",
-        "comments": []
-    };
-const TrackPage = () => {
-    const router = useRouter();
+const TrackPage = ({serverTrack}) => {
+    const [track, setTrack] = useState<ITrack>(serverTrack)
+    const router = useRouter()
     const username = useInput('')
     const text = useInput('')
 
-
-    const addComment = () => {
-
+    const addComment = async () => {
+        try {
+            const response = await axios.post('http://localhost:5000/tracks/comment', {
+                username: username.value,
+                text: text.value,
+                trackId: track._id
+            })
+            setTrack({...track, comments: [...track.comments, response.data]})
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
-        <MainLayout>
+        <MainLayout
+            title={"Listening ArmoRhythm - " + track.name + " - " + track.artist}
+            keywords={'Track, Artists, ' + track.name + ", " + track.artist}
+        >
             <Button
                 variant={"outlined"}
                 style={{fontSize: 32}}
                 onClick={() => router.push('/tracks')}
-            />
+            >
+                To Tracklist
+            </Button>
             <Grid container style={{margin: '20px 0'}}>
-                <img src={'http://localhost:5000/' + track.picture} width={200} height={200} alt={track.name}/>
+                <img src={'http://localhost:5000/' + track.picture} width={200} height={200}/>
                 <div style={{marginLeft: 30}}>
-                    <h1> {track.name}</h1>
-                    <h1> {track.artist}</h1>
-                    <h1>Listen Count {track.listens}</h1>
+                    <h1>Trackname - {track.name}</h1>
+                    <h1>Artist - {track.artist}</h1>
+                    <h1>Listens - {track.listens}</h1>
                 </div>
             </Grid>
             <h1>Lyrics</h1>
@@ -47,24 +54,24 @@ const TrackPage = () => {
             <Grid container>
 
                 <TextField
-                    label="Your Name"
+                    label="Ваше имя"
                     fullWidth
                     {...username}
                 />
                 <TextField
-                    label="Comment"
+                    label="Комментарий"
                     {...text}
                     fullWidth
                     multiline
                     rows={4}
                 />
-                <Button onClick={addComment}>Send</Button>
+                <Button onClick={addComment}>Submit</Button>
             </Grid>
             <div>
                 {track.comments.map(comment =>
                     <div>
                         <div>Author - {comment.username}</div>
-                        <div>Comments - {comment.text}</div>
+                        <div>Comment - {comment.text}</div>
                     </div>
                 )}
             </div>
@@ -73,3 +80,12 @@ const TrackPage = () => {
 };
 
 export default TrackPage;
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+    const response = await axios.get('http://localhost:5000/tracks/' + params.id)
+    return {
+        props: {
+            serverTrack: response.data
+        }
+    }
+}

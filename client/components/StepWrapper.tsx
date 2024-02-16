@@ -1,11 +1,15 @@
 import React from 'react';
-import {Card, Container, Grid, Step, StepLabel, Stepper} from "@mui/material";
-
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper from '@mui/material/Stepper';
+import Container from '@mui/material/Container';
 interface StepWrapperProps {
     activeStep: number;
+    children:any;
 }
-
-const steps = ['Track Information', 'Upload cover', 'Upload file']
+const steps = ['Информация о треке', 'Загрузите обложку', 'Загрузите сам трек']
 
 const StepWrapper: React.FC<StepWrapperProps> = ({activeStep, children}) => {
     return (
@@ -14,7 +18,8 @@ const StepWrapper: React.FC<StepWrapperProps> = ({activeStep, children}) => {
                 {steps.map((step, index) =>
                     <Step
                         key={index}
-                        completed={activeStep > index}>
+                        completed={activeStep > index}
+                    >
                         <StepLabel>{step}</StepLabel>
                     </Step>
                 )}
