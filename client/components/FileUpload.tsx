@@ -3,6 +3,7 @@ import React, {useRef} from 'react';
 interface FileUploadProps {
     setFile: Function;
     accept: string;
+    children:any
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({setFile, accept, children}) => {
