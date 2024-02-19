@@ -3,13 +3,8 @@ import Navbar from "../components/Navbar";
 import Container from '@mui/material/Container';
 import Player from "../components/Player";
 import Head from "next/head";
+import {MainLayoutProps} from "../types/layouts/mainLayoutProps";
 
-interface MainLayoutProps {
-    title?: string;
-    description?: string;
-    keywords?: string;
-    children:any
-}
 
 const MainLayout: React.FC<MainLayoutProps>
     = ({

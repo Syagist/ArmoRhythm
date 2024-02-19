@@ -1,12 +1,8 @@
-import React, {useEffect} from 'react';
-import {ITrack} from "../types/track";
+import React from 'react';
 import TrackItem from "./TrackItem";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
-interface TrackListProps {
-    tracks: ITrack[]
-}
+import {TrackListProps} from "../types/components/trackProps";
 
 const TrackList: React.FC<TrackListProps> = ({tracks}) => {
     return (

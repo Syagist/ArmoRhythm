@@ -8,10 +8,6 @@ import {Delete, Pause, PlayArrow} from "@mui/icons-material";
 import {useRouter} from "next/router";
 import {useActions} from "../hooks/useActions";
 
-interface TrackItemProps {
-    track: ITrack;
-    active?: boolean;
-}
 
 const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
     const router = useRouter()

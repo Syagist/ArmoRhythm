@@ -13,6 +13,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/MoveToInbox';
 import { useRouter } from 'next/navigation'
 import {AppBar, Typography} from "@mui/material";
+import {useState} from "react";
 
 const menuItems = [
     {text: 'Main', href: '/'},
@@ -21,7 +22,7 @@ const menuItems = [
 ]
 
 export default function Navbar() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const router = useRouter()
 
     const handleDrawerOpen = () => {
@@ -35,16 +36,13 @@ export default function Navbar() {
     return (
         <div >
             <CssBaseline />
-            <AppBar
-                position="fixed"
-            >
+            <AppBar position="fixed">
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
-                        edge="start"
-                    >
+                        edge="start">
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
@@ -55,8 +53,7 @@ export default function Navbar() {
             <Drawer
                 variant="persistent"
                 anchor="left"
-                open={open}
-            >
+                open={open}>
                 <div>
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon />

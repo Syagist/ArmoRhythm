@@ -1,10 +1,5 @@
 import React from 'react';
-
-interface TrackProgressProps {
-    left: number;
-    right: number;
-    onChange: (e) => void
-}
+import {TrackProgressProps} from "../types/components/trackProgressProps";
 
 const TrackProgress: React.FC<TrackProgressProps> =
     ({
