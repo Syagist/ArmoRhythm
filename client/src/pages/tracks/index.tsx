@@ -1,14 +1,14 @@
 import React from 'react';
-import MainLayout from "../../layouts/MainLayout";
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import {useRouter} from "next/router";
-import TrackList from "../../components/TrackList";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {NextThunkDispatch, wrapper} from "../../store";
 import {fetchTracks} from "../../store/actions-creators/track";
+import MainLayout from "../../layouts/MainLayout";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import TrackList from "../../components/TrackList";
 
 const Index = () => {
     const router = useRouter()
@@ -21,12 +21,12 @@ const Index = () => {
     }
 
     return (
-        <MainLayout title={"Список треков - музыкальная площадка"}>
+        <MainLayout title={"Track list for Music Platform"}>
             <Grid container justifyContent='center'>
                 <Card style={{width: 900}}>
                     <Box p={3}>
                         <Grid container justifyContent='space-between'>
-                            <h1>Список треков</h1>
+                            <h1>Track List</h1>
                             <Button onClick={() => router.push('/tracks/create')}>
                                 Upload
                             </Button>

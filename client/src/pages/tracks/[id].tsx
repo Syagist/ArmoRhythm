@@ -54,12 +54,12 @@ const TrackPage = ({serverTrack}) => {
             <Grid container>
 
                 <TextField
-                    label="Ваше имя"
+                    label="Your name"
                     fullWidth
                     {...username}
                 />
                 <TextField
-                    label="Комментарий"
+                    label="Comment"
                     {...text}
                     fullWidth
                     multiline

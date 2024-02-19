@@ -9,7 +9,7 @@ interface StepWrapperProps {
     activeStep: number;
     children:any;
 }
-const steps = ['Информация о треке', 'Загрузите обложку', 'Загрузите сам трек']
+const steps = ['Track Ifo', 'Upload Cover', 'Upload track']
 
 const StepWrapper: React.FC<StepWrapperProps> = ({activeStep, children}) => {
     return (

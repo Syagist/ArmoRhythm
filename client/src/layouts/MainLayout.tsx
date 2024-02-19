@@ -21,10 +21,10 @@ const MainLayout: React.FC<MainLayoutProps>
     return (
         <>
             <Head>
-                <title>{title || 'Музыкальная площадка'}</title>
-                <meta name="description" content={`Музыкальная площадка. Здесь каждый может оставить свой трек и стать знаменитым.` + description}/>
+                <title>{title || 'Music platform'}</title>
+                <meta name="description" content={`Music platform. Here everyone can leave their track and become famous.` + description}/>
                 <meta name="robots" content="index, follow"/>
-                <meta name="keywords" content={keywords || "Музыка, треки, артисты"}/>
+                <meta name="keywords" content={keywords || "Music, Tracks, Artists"}/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
             </Head>
             <Navbar/>
