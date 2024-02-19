@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from "react";
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,15 +11,18 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/MoveToInbox';
-import { useRouter } from 'next/navigation'
+import {useRouter} from 'next/navigation'
 import {AppBar, Typography} from "@mui/material";
-import {useState} from "react";
+import navStyles from '../styles/Navbar.module.scss'
+import LanguageSelect from "./languageSelect";
+import { Button as BaseButton, ButtonProps } from '@mui/base/Button';
+import clsx from 'clsx';
+
 
 const menuItems = [
-    {text: 'Main', href: '/'},
-    {text: 'Track List', href: '/tracks'},
-    {text: 'Album List', href: '/albums'},
+    {text: 'Main', icon: <InboxIcon/>, href: '/'},
+    {text: 'Track List', icon: <InboxIcon/>, href: '/tracks'},
+    {text: 'Album List', icon: <InboxIcon/>, href: '/albums'},
 ]
 
 export default function Navbar() {
@@ -34,8 +38,8 @@ export default function Navbar() {
     };
 
     return (
-        <div >
-            <CssBaseline />
+        <div className={navStyles.nav_wrapper}>
+            <CssBaseline/>
             <AppBar position="fixed">
                 <Toolbar>
                     <IconButton
@@ -43,11 +47,21 @@ export default function Navbar() {
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start">
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         Persistent drawer
                     </Typography>
+                    <div className={navStyles.auth_lang_box}>
+                        <div className={navStyles.auth_box}>
+                            <BaseButton onClick={() => router.push('/auth/login')}>Login</BaseButton>
+                            <BaseButton onClick={() => router.push('/auth/register')}>Register</BaseButton>
+                        </div>
+
+                        <div className={navStyles.lang_box}>
+                            <LanguageSelect/>
+                        </div>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -56,16 +70,16 @@ export default function Navbar() {
                 open={open}>
                 <div>
                     <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </div>
                 <List>
-                    {menuItems.map(({text, href}, index) => (
+                    {menuItems.map(({text, href, icon}, index) => (
                         <ListItem button key={href} onClick={() => router.push(href)}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                {icon}
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={text}/>
                         </ListItem>
                     ))}
                 </List>
@@ -73,3 +87,5 @@ export default function Navbar() {
         </div>
     );
 }
+
+
