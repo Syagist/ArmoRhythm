@@ -15,7 +15,7 @@ export const reducer = (state, action) => {
             ...state, // use previous state
             ...action.payload, // apply delta from hydration
         }
-        if (state.count) nextState.count = state.count // preserve count value on client side navigation
+        if (state.count) nextState.count = state.count // preserve count value on client.ts side navigation
         return nextState
     } else {
         return rootReducer(state, action)

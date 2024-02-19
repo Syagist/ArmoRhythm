@@ -27,14 +27,14 @@ client/npm-debug.log*
 client/yarn-debug.log*
 client/yarn-error.log*
 
-# local env files
-client/.env*.local
+# local environments files
+client/.environments*.local
 
 # vercel
 client/.vercel
 
 # typescript
 client/*.tsbuildinfo
-client/next-env.d.ts
+client/next-environments.d.ts
 
 

@@ -13,11 +13,14 @@ export enum FileType {
 export class FileService {
 
 
-    createFile(type: FileType, file) {
+    createFile(type: FileType, file, subPath = '') {
         try {
+            if (!file) {
+                return;
+            }
             const fileExtension = file.originalname.split('.').pop();
             const fileName = uuid.v4() + '.' + fileExtension;
-            const filePath = path.resolve(__dirname, '..', 'static', type);
+            const filePath = path.resolve(__dirname, '..', 'static', type + subPath);
             if (!fs.existsSync(filePath)) {
                 fs.mkdirSync(filePath, {recursive: true});
             }
