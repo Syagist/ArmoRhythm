@@ -5,12 +5,14 @@ import Box from '@mui/material/Box';
 import {wrapper} from "../../store";
 import MainLayout from "../../layouts/MainLayout";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 import Button from "@mui/material/Button";
 import {useFormik} from "formik";
 import loginValidationSchema from "../../validationSchema/loginValidationSchema";
+import {login} from "../../api/auth";
+import {useRouter} from "next/router";
 
 const Login = () => {
+    const router = useRouter()
 
     const formik = useFormik({
         initialValues: {
@@ -20,11 +22,11 @@ const Login = () => {
         validationSchema: loginValidationSchema,
         onSubmit: async (values) => {
             try {
-                const response = await axios.post('http://localhost:5000/auth/login', {
-                    email:  values.email,
-                    password:  values.password
+                const response = await login({
+                    email: values.email,
+                    password: values.password
                 })
-                console.log(response)
+                await router.push('/profile/' + response._id);
             } catch (e) {
                 console.log(e)
             }

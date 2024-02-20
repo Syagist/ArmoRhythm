@@ -1,20 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
-import {wrapper} from "../../store";
+import {useRouter} from "next/router";
+import {NextThunkDispatch, wrapper} from "../../store";
 import MainLayout from "../../layouts/MainLayout";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 import Button from "@mui/material/Button";
 import registrationValidationSchema from "../../validationSchema/registrationValidationSchema";
 import {useFormik} from "formik";
-import {setTokensInCookies} from "../../utils/cookieUtils";
-import {STATUS_CREATED} from "../../utils/api_constants";
-import {host} from "../../api";
 import {register} from "../../api/auth";
+import FileUpload from "../../components/FileUpload";
+import {setTokensInCookies} from "../../utils/cookieUtils";
 
 const Register = () => {
+    const [picture, setPicture] = useState(null);
+    const router = useRouter()
 
     const formik = useFormik({
         initialValues: {
@@ -33,32 +34,12 @@ const Register = () => {
                     email: values.email,
                     password: values.password
                 })
-                console.log(response)
+                await router.push('/profile/' + response._id);
             } catch (e) {
                 console.log(e)
             }
         },
     });
-//{
-//     "access_token": {
-//         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWQ0NjNkYWNmMzQyNjcwYjg5NjNiM2YiLCJ1c2VybmFtZSI6IjEzMjEzMSIsImlhdCI6MTcwODQxODAxMSwiZXhwIjoxNzA4NDE4OTExfQ._pzJU5AI7hgiIEp_tyM0HKRc9cY1vny-X8tKlmjwBtQ",
-//         "expires": "15m"
-//     },
-//     "refresh_token": {
-//         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWQ0NjNkYWNmMzQyNjcwYjg5NjNiM2YiLCJ1c2VybmFtZSI6IjEzMjEzMSIsImlhdCI6MTcwODQxODAxMSwiZXhwIjoxNzExMDEwMDExfQ.8WYVJdtJnk7zhC-125jdx5sE6OHMdY25orNqLlaiQxE",
-//         "expires": "30d"
-//     },
-//     "user": {
-//         "firstName": "132131",
-//         "lastName": "12321323",
-//         "email": "123123@12321.1232",
-//         "password": "12321323",
-//         "tracks": [],
-//         "_id": "65d463dacf342670b8963b3f",
-//         "__v": 0,
-//         "sessionToken": "1sJJie6QiQO2GWtiKmnEYbweDMVjSlUFGzkj5cWcO1yJZnLF2cdd4ZvdmMhv"
-//     }
-// }
 
     return (
         <MainLayout title={"Track list for Music Platform"}>
@@ -67,7 +48,12 @@ const Register = () => {
                     <Box p={3}>
                         <h1>Register</h1>
                         <form onSubmit={formik.handleSubmit}>
-
+                            <FileUpload setFile={setPicture} accept="image/*">
+                                <Button>Upload cover</Button>
+                            </FileUpload>
+                            <Card style={{width: 200}}>
+                                <img src={picture} alt={'cover'}/>
+                            </Card>
                             <TextField
                                 style={{marginTop: 10, width: '100%'}}
                                 label="First Name"

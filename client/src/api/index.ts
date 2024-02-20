@@ -1,15 +1,16 @@
 import axios, {InternalAxiosRequestConfig} from "axios";
 import {getAccessTokenFromCookie} from "../utils/cookieUtils";
+import {BASE_API} from "../utils/api_constants";
 
 const host = axios.create(
     {
-        baseURL: process.env.APP_API_URL
+        baseURL: BASE_API
     }
 )
 
 const authHost = axios.create(
     {
-        baseURL: process.env.APP_API_URL
+        baseURL: BASE_API
     }
 )
 
