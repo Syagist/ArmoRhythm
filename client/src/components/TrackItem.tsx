@@ -7,6 +7,7 @@ import styles from '../styles/TrackItem.module.scss'
 import {Delete, Pause, PlayArrow} from "@mui/icons-material";
 import {useRouter} from "next/router";
 import {useActions} from "../hooks/useActions";
+import {TrackItemProps} from "../types/components/trackProps";
 
 
 const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
