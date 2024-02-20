@@ -10,9 +10,6 @@ import Button from "@mui/material/Button";
 import registrationValidationSchema from "../../validationSchema/registrationValidationSchema";
 import {useFormik} from "formik";
 import {setTokensInCookies} from "../../utils/cookieUtils";
-import {STATUS_CREATED} from "../../utils/api_constants";
-import {host} from "../../api";
-import {register} from "../../api/auth";
 
 const Register = () => {
 
@@ -27,38 +24,23 @@ const Register = () => {
         validationSchema: registrationValidationSchema,
         onSubmit: async (values) => {
             try {
-                const response = await register({
+                const response = await axios.post('http://localhost:5000/auth/register', {
                     firstName: values.firstName,
-                    lastName: values.lastName,
-                    email: values.email,
-                    password: values.password
+                    lastName:  values.lastName,
+                    email:  values.email,
+                    password:  values.password
                 })
+                if (response.status === 200) {
+                    console.log(response);
+                    // setTokensInCookies()
+                }
                 console.log(response)
             } catch (e) {
                 console.log(e)
             }
         },
     });
-//{
-//     "access_token": {
-//         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWQ0NjNkYWNmMzQyNjcwYjg5NjNiM2YiLCJ1c2VybmFtZSI6IjEzMjEzMSIsImlhdCI6MTcwODQxODAxMSwiZXhwIjoxNzA4NDE4OTExfQ._pzJU5AI7hgiIEp_tyM0HKRc9cY1vny-X8tKlmjwBtQ",
-//         "expires": "15m"
-//     },
-//     "refresh_token": {
-//         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWQ0NjNkYWNmMzQyNjcwYjg5NjNiM2YiLCJ1c2VybmFtZSI6IjEzMjEzMSIsImlhdCI6MTcwODQxODAxMSwiZXhwIjoxNzExMDEwMDExfQ.8WYVJdtJnk7zhC-125jdx5sE6OHMdY25orNqLlaiQxE",
-//         "expires": "30d"
-//     },
-//     "user": {
-//         "firstName": "132131",
-//         "lastName": "12321323",
-//         "email": "123123@12321.1232",
-//         "password": "12321323",
-//         "tracks": [],
-//         "_id": "65d463dacf342670b8963b3f",
-//         "__v": 0,
-//         "sessionToken": "1sJJie6QiQO2GWtiKmnEYbweDMVjSlUFGzkj5cWcO1yJZnLF2cdd4ZvdmMhv"
-//     }
-// }
+
 
     return (
         <MainLayout title={"Track list for Music Platform"}>

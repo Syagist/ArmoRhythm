@@ -38,3 +38,6 @@ client/*.tsbuildinfo
 client/next-environments.d.ts
 
 
+*.log
+**/*.log
+

@@ -1,14 +1,9 @@
-import {BadRequestException, forwardRef, Inject, Injectable} from "@nestjs/common";
-import {InjectModel} from "@nestjs/mongoose";
+import {Injectable} from "@nestjs/common";
 import {User} from "../user/shemas/user.schema";
-import {Model} from "mongoose";
-import {FileService, FileType} from "../file/file.service";
-import {RegisterDto} from "./dto/register.dto";
-import {UserService} from "../user/user.service";
-import {TokenResponse} from "../interfaces/auth/auth";
 import {JwtService, JwtSignOptions} from "@nestjs/jwt";
 import {environments} from "../environments/environments";
 import {Token} from "./jwt-auth-guard";
+import {TokenResponse} from "../interfaces/auth/auth";
 
 
 @Injectable()
@@ -16,6 +11,7 @@ import {Token} from "./jwt-auth-guard";
 export class AuthService {
     constructor(private jwtService: JwtService) {
     }
+
     async login(user: User): Promise<TokenResponse> {
         const payload: Token = {
             sub: user.id,
@@ -32,11 +28,18 @@ export class AuthService {
         }
 
         return {
-            access_token: await this.jwtService.signAsync(
-                payload,
-                this.getAccessTokenOptions(user),
-            ),
-            refresh_token,
+            access_token: {
+                token: await this.jwtService.signAsync(
+                    payload,
+                    this.getAccessTokenOptions(user),
+                ),
+                expires: environments.accessTokenExpiration,
+            },
+            refresh_token: {
+                token: refresh_token,
+                expires: environments.refreshTokenExpiration,
+            },
+            user: user
         };
     }
 
