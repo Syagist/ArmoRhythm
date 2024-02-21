@@ -16,6 +16,7 @@ export class AuthController {
     async register(@UploadedFiles() files, @Body() dto: RegisterDto) {
 
         const errors = await this.authService.validateAuthDto(dto);
+
         if (errors.length > 0) {
             throw new ValidationException('Validation failed', errors);
         }
