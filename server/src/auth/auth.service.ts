@@ -1,5 +1,4 @@
-import {HttpStatus, Injectable, UnauthorizedException} from "@nestjs/common";
-import * as bcrypt from 'bcrypt';
+import {Injectable} from "@nestjs/common";
 import {User} from "../user/shemas/user.schema";
 import {JwtService, JwtSignOptions} from "@nestjs/jwt";
 import {environments} from "../environments/environments";
@@ -8,8 +7,6 @@ import {TokenResponse} from "../interfaces/auth/auth";
 import {RegisterDto} from "./dto/register.dto";
 import {validate} from "class-validator";
 import {LoginDto} from "./dto/login.dto";
-import {ValidationException} from "../common/exceptions/validation.exception";
-import {UserViewModel} from "../user/user.view-model";
 
 
 @Injectable()
@@ -20,25 +17,27 @@ export class AuthService {
 
     async login(user: User): Promise<TokenResponse> {
 
-        const payload: Token = {
-            sub: user.id,
-            username: user.firstName + ' ' + user.lastName,
+        const accessTokenPayload: Token = {
+            id: user.id
+        };
+
+        const refreshTokenPayload: Token = {
+            id: user.id
         };
 
         let refresh_token: string;
 
         if (environments.accessTokenExpiration) {
             refresh_token = await this.jwtService.signAsync(
-                payload,
+                refreshTokenPayload,
                 this.getRefreshTokenOptions(user),
             );
         }
-        const userViewModel = new UserViewModel(user);
 
         return {
             access_token: {
                 token: await this.jwtService.signAsync(
-                    payload,
+                    accessTokenPayload,
                     this.getAccessTokenOptions(user),
                 ),
                 expires: environments.accessTokenExpiration,
@@ -47,7 +46,7 @@ export class AuthService {
                 token: refresh_token,
                 expires: environments.refreshTokenExpiration,
             },
-            user: user
+            user: user,
         };
     }
 

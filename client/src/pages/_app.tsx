@@ -1,7 +1,19 @@
-import { AppProps } from 'next/app';
-import { wrapper } from '../store';
+import {AppProps} from 'next/app';
+import {wrapper} from '../store';
+import {useEffect} from "react";
+import {getAccessTokenFromCookie, getRefreshTokenFromCookie, decodeAccessToken} from "../utils/cookieUtils";
+import {setUser} from "../store/actions-creators/user";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({Component, pageProps}: AppProps) => {
+
+    useEffect(() => {
+        const accessToken = getAccessTokenFromCookie();
+        const refreshToken = getRefreshTokenFromCookie();
+
+        if (accessToken && refreshToken) {
+            const user = decodeAccessToken(accessToken);
+        }
+    })
     return <Component {...pageProps} />;
 };
 

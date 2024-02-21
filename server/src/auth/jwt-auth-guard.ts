@@ -16,8 +16,7 @@ import {getClient} from "../shared/utils/get-client";
 import {AUTH_NOT_REQUIRED} from "./decorators/auth-not-required.decorator";
 
 export interface Token {
-    sub: string;
-    username: string;
+    id: string;
 }
 
 @Injectable()
@@ -76,8 +75,8 @@ export class JwtAuthGuard implements CanActivate {
         }
     }
 
-    private validate({ sub }: Token) {
-        return this.userService.validateUserById(sub);
+    private validate({ id }: Token) {
+        return this.userService.validateUserById(id);
     }
 
     private getToken(ctx: ExecutionContext, client: Client): string {

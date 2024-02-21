@@ -20,7 +20,7 @@ export const login = async (requestModel: UserLoginRequest): Promise<UserModel> 
         'auth/login',
         requestModel
     )
-    if (response.status === STATUS_OK) {
+    if (response.status === STATUS_CREATED) {
         const data = response.data;
         setTokensInCookies(data.access_token.token, data.refresh_token.token, data.access_token.expires, data.refresh_token.expires)
     }

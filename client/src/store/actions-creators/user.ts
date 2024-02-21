@@ -1,7 +1,13 @@
 import {Dispatch} from "react";
 import axios from "axios";
 import {BASE_API} from "../../utils/api_constants";
-import {SetUserAction, UserAction, UserActionTypes, UserModel, UserState} from "../../types/user";
+import {
+    SetUserAction,
+    UserAction,
+    UserActionTypes,
+    UserModel,
+    UserState
+} from "../../types/user";
 import {ThunkDispatch} from "redux-thunk";
 
 type AppDispatch = Dispatch<UserAction> & ThunkDispatch<UserState, void, UserAction>;
