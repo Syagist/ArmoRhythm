@@ -27,6 +27,7 @@ export class AuthController {
             firstName: dto.firstName,
             lastName: dto.lastName,
         }, files);
+
         return this.authService.login(user);
     }
 
