@@ -20,10 +20,10 @@ export class AuthController {
             throw new ValidationException('Validation failed', errors);
         }
 
-        const hashedPassword = await bcrypt.hash(dto.password, 10); // You can adjust the saltRounds
+        const hashedPassword = await bcrypt.hash(dto.password, 10);
         const user = await this.userService.create({
             email: dto.email,
-            password: hashedPassword, // Save the hashed password
+            password: hashedPassword,
             firstName: dto.firstName,
             lastName: dto.lastName,
         }, files);
