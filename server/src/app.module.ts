@@ -14,7 +14,7 @@ dotenv.config();
     imports: [
         MongooseModule.forRoot(environments.mongoUri),
         ServeStaticModule.forRoot({
-            rootPath: path.resolve(__dirname,'static'),
+            rootPath: path.resolve(__dirname,'..','static'),
         }),
         TrackModule,
         AuthModule,

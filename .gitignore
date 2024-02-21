@@ -1,5 +1,6 @@
 .idea
 server/dist
+server/static
 node_modules
 .env
 
@@ -14,6 +15,8 @@ client/coverage
 # next.js
 client/.next/
 client/out/
+
+
 
 # production
 client/build
