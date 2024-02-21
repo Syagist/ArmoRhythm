@@ -2,7 +2,6 @@ import {AppProps} from 'next/app';
 import {wrapper} from '../store';
 import {useEffect} from "react";
 import {getAccessTokenFromCookie, getRefreshTokenFromCookie, decodeAccessToken} from "../utils/cookieUtils";
-import {setUser} from "../store/actions-creators/user";
 
 const MyApp = ({Component, pageProps}: AppProps) => {
 

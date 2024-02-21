@@ -14,10 +14,12 @@ export class AuthController {
 
     @Post('/register')
     async register(@UploadedFiles() files, @Body() dto: RegisterDto) {
+
         const errors = await this.authService.validateAuthDto(dto);
         if (errors.length > 0) {
             throw new ValidationException('Validation failed', errors);
         }
+
         const hashedPassword = await bcrypt.hash(dto.password, 10); // You can adjust the saltRounds
         const user = await this.userService.create({
             email: dto.email,
