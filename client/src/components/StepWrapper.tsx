@@ -7,7 +7,7 @@ import Stepper from '@mui/material/Stepper';
 import Container from '@mui/material/Container';
 import {StepWrapperProps} from "../types/components/stepWrapperProps";
 
-const steps = ['Track Ifo', 'Upload Cover', 'Upload track']
+const steps = ['Track Ifo', 'Upload Cover', 'Upload createTrack']
 
 const StepWrapper: React.FC<StepWrapperProps> = ({activeStep, children}) => {
     return (

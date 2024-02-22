@@ -21,7 +21,7 @@ import clsx from 'clsx';
 
 const menuItems = [
     {text: 'Main', icon: <InboxIcon/>, href: '/'},
-    {text: 'Track List', icon: <InboxIcon/>, href: '/tracks'},
+    {text: 'Track List', icon: <InboxIcon/>, href: '/createTrack'},
     {text: 'Album List', icon: <InboxIcon/>, href: '/albums'},
 ]
 

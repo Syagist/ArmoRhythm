@@ -1,6 +1,5 @@
 import {NestFactory} from "@nestjs/core";
 import {AppModule} from "./app.module";
-import * as process from "process";
 import {environments} from "./environments/environments";
 import {ValidationPipe} from "@nestjs/common";
 import {ValidationExceptionFilter} from "./common/filters/validation-exception.filter";

@@ -37,7 +37,7 @@ const TrackPage = ({serverTrack}) => {
             <Button
                 variant={"outlined"}
                 style={{fontSize: 32}}
-                onClick={() => router.push('/tracks')}
+                onClick={() => router.push('/createTrack')}
             >
                 To Tracklist
             </Button>

@@ -1,13 +1,16 @@
-import {Module} from "@nestjs/common";
-import TrackModule from "./track/track.module";
-import {MongooseModule} from "@nestjs/mongoose";
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-import {FileModule} from "./file/file.module";
+import {Module} from "@nestjs/common";
 import {ServeStaticModule} from "@nestjs/serve-static";
-import AuthModule from "./auth/auth.module";
-import UserModule from "./user/user.module";
+import {MongooseModule} from "@nestjs/mongoose";
 import {environments} from "./environments/environments";
+import {FileModule} from "./file/file.module";
+import TrackModule from "./futures/track/track.module";
+import AuthModule from "./futures/auth/auth.module";
+import UserModule from "./futures/user/user.module";
+import GenreModule from "./futures/genres/genre.module";
+import AlbumModule from "./futures/album/album.module";
+import ArtistModule from "./futures/artist/artist.module";
 dotenv.config();
 
 @Module({
@@ -17,6 +20,9 @@ dotenv.config();
             rootPath: path.resolve(__dirname,'..','static'),
         }),
         TrackModule,
+        GenreModule,
+        ArtistModule,
+        AlbumModule,
         AuthModule,
         UserModule,
         FileModule
