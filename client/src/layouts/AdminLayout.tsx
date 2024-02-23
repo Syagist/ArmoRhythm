@@ -1,12 +1,8 @@
 import React from 'react';
-import Navbar from "../components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import Container from '@mui/material/Container';
-import Player from "../components/Player";
-import Head from "next/head";
-import {MainLayoutProps} from "../types/layouts/mainLayoutProps";
-import {AdminLayoutProps} from "../types/layouts/adminLayoutProps";
-import IconButton from "@mui/material/IconButton";
-import {ArrowBack, Pause, PlayArrow} from "@mui/icons-material";
+import Player from "@/components/player/Player";
+import {AdminLayoutProps} from "@/types/layouts/adminLayoutProps";
 
 
 const AdminLayout: React.FC<AdminLayoutProps>

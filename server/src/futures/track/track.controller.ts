@@ -6,7 +6,7 @@ import ObjectId = Types.ObjectId
 import {CreateCommentDto} from "./dto/create-comment.dto";
 import {FileFieldsInterceptor} from "@nestjs/platform-express";
 
-@Controller('/createTrack')
+@Controller('/tracks')
 
 export class TrackController {
     constructor(private trackService: TrackService) {

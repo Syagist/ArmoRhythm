@@ -3,8 +3,8 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import MainLayout from "../../layouts/MainLayout";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
+import MainLayout from "@/layouts/MainLayout";
+import {useTypedSelector} from "@/hooks/useTypedSelector";
 
 const Index = () => {
     const {user, error} = useTypedSelector(state => state.user)

@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import {ITrack} from "../../types/track";
-import MainLayout from "../../layouts/MainLayout";
+import {ITrack} from "@/types/track";
+import MainLayout from "@/layouts/MainLayout";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
-import axios from "axios";
-import {useInput} from "../../hooks/useInput";
-import {BASE_API} from "../../utils/api_constants";
+import {useInput} from "@/hooks/useInput";
+import {BASE_API} from "@/utils/api_constants";
+import {host} from "@/api";
 
 const TrackPage = ({serverTrack}) => {
     const [track, setTrack] = useState<ITrack>(serverTrack)
@@ -18,7 +18,7 @@ const TrackPage = ({serverTrack}) => {
 
     const addComment = async () => {
         try {
-            const response = await axios.post(`${BASE_API}/tracks/comment`, {
+            const response = await host.post(`/tracks/comment`, {
                 username: username.value,
                 text: text.value,
                 trackId: track._id
@@ -83,7 +83,7 @@ const TrackPage = ({serverTrack}) => {
 export default TrackPage;
 
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
-    const response = await axios.get(`${BASE_API}/tracks/` + params.id)
+    const response = await host.get(`/tracks/` + params.id)
     return {
         props: {
             serverTrack: response.data

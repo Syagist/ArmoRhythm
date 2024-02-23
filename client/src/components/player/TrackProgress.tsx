@@ -1,5 +1,5 @@
 import React from 'react';
-import {TrackProgressProps} from "../types/components/trackProgressProps";
+import {TrackProgressProps} from "../../types/components/trackProgressProps";
 
 const TrackProgress: React.FC<TrackProgressProps> =
     ({

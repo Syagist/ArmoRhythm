@@ -13,16 +13,14 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import {useRouter} from 'next/navigation'
 import {AppBar, Typography} from "@mui/material";
-import navStyles from '../styles/Navbar.module.scss'
-import LanguageSelect from "./languageSelect";
-import { Button as BaseButton, ButtonProps } from '@mui/base/Button';
-import clsx from 'clsx';
+import navStyles from '../../styles/Navbar.module.scss'
+import { Button as BaseButton} from '@mui/base/Button';
+import LanguageSelect from "../ui/LanguageSelect";
 
 
 const menuItems = [
     {text: 'Main', icon: <InboxIcon/>, href: '/'},
     {text: 'Track List', icon: <InboxIcon/>, href: '/createTrack'},
-    {text: 'Album List', icon: <InboxIcon/>, href: '/albums'},
 ]
 
 export default function Navbar() {

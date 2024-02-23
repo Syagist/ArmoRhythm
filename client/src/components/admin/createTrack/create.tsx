@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
-import StepWrapper from "../../../components/StepWrapper";
+import React, {useEffect, useState} from 'react';
+import StepWrapper from "@/components/ui/StepWrapper";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
-import FileUpload from "../../../components/FileUpload";
-import {useInput} from "../../../hooks/useInput";
-import axios from "axios";
-import {useRouter} from "next/router";
+import FileUpload from "@/components/fileUpload/FileUpload";
+import {useInput} from "@/hooks/useInput";
+import {host} from "@/api";
+import {useTypedSelector} from "@/hooks/useTypedSelector";
+import {STATUS_CREATED} from "@/utils/api_constants";
+import {useDispatch} from "react-redux";
+import {fetchArtists} from "@/store/actions-creators/artists";
 
 const CreateTrack = () => {
     const [activeStep, setActiveStep] = useState(0)
@@ -17,7 +20,17 @@ const CreateTrack = () => {
     const name = useInput('')
     const artist = useInput('')
     const text = useInput('')
-    const router = useRouter()
+    const {artists,} = useTypedSelector(state => state.artists)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getArtists = async () => {
+            // await dispatch(fetchArtists());
+        };
+
+        getArtists();
+    }, [dispatch]);
 
     const next = () => {
         if (activeStep !== 2) {
@@ -29,9 +42,16 @@ const CreateTrack = () => {
             formData.append('artist', artist.value)
             formData.append('picture', picture)
             formData.append('audio', audio)
-            axios.post('http://localhost:5000/tracks', formData)
-                .then(resp => router.push('/createTrack'))
+            host.post(`/tracks`, formData)
+                .then(resp => {
+                    if (resp.status === STATUS_CREATED) {
+                        alert("Track successfully uploaded")
+                    }
+                })
                 .catch(e => console.log(e))
+                .finally(() => {
+                    console.log('close modal here')
+                })
         }
     }
 
@@ -48,6 +68,7 @@ const CreateTrack = () => {
                     <StepWrapper activeStep={activeStep}>
                         {activeStep === 0 &&
                             <Grid container direction={"column"} style={{padding: 20}}>
+                                {/*<SearchWithSelection artists={artists} />*/}
                                 <TextField
                                     {...name}
                                     style={{marginTop: 10}}
@@ -65,6 +86,7 @@ const CreateTrack = () => {
                                     multiline
                                     rows={3}
                                 />
+
                             </Grid>
                         }
                         {activeStep === 1 &&

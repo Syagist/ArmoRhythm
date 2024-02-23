@@ -4,11 +4,11 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import {useRouter} from "next/router";
-import {NextThunkDispatch, wrapper} from "../../store";
-import {fetchTracks} from "../../store/actions-creators/track";
-import MainLayout from "../../layouts/MainLayout";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import TrackList from "../../components/TrackList";
+import {NextThunkDispatch, wrapper} from "@/store";
+import {fetchTracks} from "@/store/actions-creators/track";
+import MainLayout from "@/layouts/MainLayout";
+import {useTypedSelector} from "@/hooks/useTypedSelector";
+import TrackList from "@/components/track/TrackList";
 
 const Index = () => {
     const router = useRouter()

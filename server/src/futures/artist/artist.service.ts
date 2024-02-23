@@ -14,7 +14,7 @@ export class ArtistService {
     }
 
     async create(dto: CreateArtistDto, picture): Promise<Artist> {
-        const picturePath = this.fileService.createFile(FileType.IMAGE, picture)
+        const picturePath = this.fileService.createFile(FileType.IMAGE, picture,'artists')
         return this.artistModel.create(
             {...dto, picture: picturePath})
     }

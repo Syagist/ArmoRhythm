@@ -13,7 +13,7 @@ export class UserService {
 
     async create(body: Partial<User>, picture) {
         const user = await this.userModel.create(body);
-        const picturePath = this.fileService.createFile(FileType.IMAGE, picture, 'user-picture')
+        const picturePath = this.fileService.createFile(FileType.IMAGE, picture, 'users')
         user.generateSessionToken();
         user.picture = picturePath;
         return user.save();

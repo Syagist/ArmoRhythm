@@ -2,10 +2,11 @@ import React, {useEffect} from 'react';
 import {Pause, PlayArrow, VolumeUp} from "@mui/icons-material";
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import styles from '../styles/Player.module.scss'
+import styles from '@/styles/Player.module.scss'
 import TrackProgress from "./TrackProgress";
-import {useTypedSelector} from "../hooks/useTypedSelector";
-import {useActions} from "../hooks/useActions";
+import {useTypedSelector} from "@/hooks/useTypedSelector";
+import {useActions} from "@/hooks/useActions";
+import {BASE_API} from "@/utils/api_constants";
 
 let audio;
 
@@ -24,7 +25,7 @@ const Player = () => {
 
     const setAudio = () => {
         if (active) {
-            audio.src = 'http://localhost:5000/' + active.audio
+            audio.src = `${BASE_API}/` + active.audio
             audio.volume = volume / 100
             audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))

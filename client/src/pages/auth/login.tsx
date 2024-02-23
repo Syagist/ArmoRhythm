@@ -2,13 +2,13 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
-import {wrapper} from "../../store";
-import MainLayout from "../../layouts/MainLayout";
+import {wrapper} from "@/store";
+import MainLayout from "@/layouts/MainLayout";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {useFormik} from "formik";
-import loginValidationSchema from "../../validationSchema/loginValidationSchema";
-import {login} from "../../api/auth";
+import loginValidationSchema from "@/validationSchema/loginValidationSchema";
+import {login} from "@/api/auth";
 import {useRouter} from "next/router";
 
 const Login = () => {

@@ -11,19 +11,19 @@ export enum FileType {
 @Injectable()
 
 export class FileService {
-    createFile(type: FileType, file, subPath = '') {
+    createFile(type: FileType, file, subPath = 'tracks') {
         try {
             if (!file) {
                 return;
             }
             const fileExtension = file.originalname.split('.').pop();
             const fileName = uuid.v4() + '.' + fileExtension;
-            const filePath = path.resolve(__dirname, '..', '..', 'static', type + subPath);
+            const filePath = path.resolve(__dirname, '..', '..', 'static', subPath + '-' + type);
             if (!fs.existsSync(filePath)) {
                 fs.mkdirSync(filePath, {recursive: true});
             }
             fs.writeFileSync(path.resolve(filePath, fileName), file.buffer);
-            return type + '/' + fileName;
+            return subPath + '-' + type + '/' + fileName;
 
         } catch (e) {
             throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR)

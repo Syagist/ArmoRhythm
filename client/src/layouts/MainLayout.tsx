@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import Container from '@mui/material/Container';
-import Player from "../components/Player";
+import Player from "../components/player/Player";
 import Head from "next/head";
 import {MainLayoutProps} from "../types/layouts/mainLayoutProps";
 

@@ -5,7 +5,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import Container from '@mui/material/Container';
-import {StepWrapperProps} from "../types/components/stepWrapperProps";
+import {StepWrapperProps} from "@/types/components/stepWrapperProps";
 
 const steps = ['Track Ifo', 'Upload Cover', 'Upload createTrack']
 

@@ -3,14 +3,14 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import {useRouter} from "next/router";
-import {wrapper} from "../../store";
-import MainLayout from "../../layouts/MainLayout";
+import {wrapper} from "@/store";
+import MainLayout from "@/layouts/MainLayout";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import registrationValidationSchema from "../../validationSchema/registrationValidationSchema";
+import registrationValidationSchema from "@/validationSchema/registrationValidationSchema";
 import {useFormik} from "formik";
-import {register} from "../../api/auth";
-import FileUpload from "../../components/FileUpload";
+import {register} from "@/api/auth";
+import FileUpload from "@/components/fileUpload/FileUpload";
 
 const Register = () => {
     const [picture, setPicture] = useState(null);

@@ -1,14 +1,13 @@
 import {Dispatch} from "react";
-import axios from "axios";
-import {BASE_API} from "../../utils/api_constants";
 import {
     SetUserAction,
     UserAction,
     UserActionTypes,
     UserModel,
     UserState
-} from "../../types/user";
+} from "@/types/user";
 import {ThunkDispatch} from "redux-thunk";
+import {host} from "@/api";
 
 type AppDispatch = Dispatch<UserAction> & ThunkDispatch<UserState, void, UserAction>;
 
@@ -16,7 +15,7 @@ type AppDispatch = Dispatch<UserAction> & ThunkDispatch<UserState, void, UserAct
 export const fetchUser = () => {
     return async (dispatch: Dispatch<UserAction>) => {
         try {
-            const response = await axios.get(`${BASE_API}/user`)
+            const response = await host.get(`/user`)
             dispatch({type: UserActionTypes.FETCH_USER, payload: response.data})
         } catch (e) {
             dispatch({
