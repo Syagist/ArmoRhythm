@@ -1,17 +1,27 @@
 import {host} from "@/api";
-import {Dispatch} from "react";
-import {ArtistsAction, ArtistsActionTypes} from "@/types/artist";
+import {IArtist} from "@/types/artist";
 
-export const fetchArtists = () => {
-    return async (dispatch: Dispatch<ArtistsAction>) => {
-        try {
-            const response = await host.get(`/artists`);
-            dispatch({ type: ArtistsActionTypes.FETCH_ARTISTS, payload: response.data });
-        } catch (e) {
-            console.log(345)
-            dispatch({
-                type: ArtistsActionTypes.FETCH_ARTISTS_ERROR,
-                payload: 'Error artists'})
-        }
+export const fetchArtists = async () => {
+    try {
+        const response = await host.get(`/artists`);
+        return response.data;
+    } catch (e) {
+        console.log(e)
+        throw Error(e)
+    }
+}
+
+export const searchArtists = async (query: string) :Promise<IArtist[]> => {
+    try {
+        const response = await host.get(`/artists/search`, {
+            params: {
+                query: query,
+            },
+        });
+        console.log(response)
+        return response.data;
+    } catch (e) {
+        console.log(e)
+        throw Error(e)
     }
 }

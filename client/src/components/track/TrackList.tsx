@@ -2,7 +2,7 @@ import React from 'react';
 import TrackItem from "./TrackItem";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import {TrackListProps} from "../../types/components/trackProps";
+import {TrackListProps} from "@/types/components/trackProps";
 
 const TrackList: React.FC<TrackListProps> = ({tracks}) => {
     return (

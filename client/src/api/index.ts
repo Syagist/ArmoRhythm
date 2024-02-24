@@ -1,6 +1,6 @@
 import axios, {InternalAxiosRequestConfig} from "axios";
-import {getAccessTokenFromCookie} from "../utils/cookieUtils";
-import {BASE_API} from "../utils/api_constants";
+import {getAccessTokenFromCookie} from "@/utils/cookieUtils";
+import {BASE_API} from "@/utils/api_constants";
 
 const host = axios.create(
     {

@@ -20,6 +20,11 @@ export class ArtistController {
         return this.artistService.create(dto, picture[0]);
     }
 
+    @Get('/search')
+    search(@Query('query',) query: string) {
+        return this.artistService.search(query);
+    }
+
     @Get()
     getAll(@Query('count') count: number, @Query('offset') offset: number) {
         return this.artistService.getAll(count, offset);
@@ -34,4 +39,6 @@ export class ArtistController {
     delete(@Param('id') id: ObjectId) {
         return this.artistService.delete(id);
     }
+
+
 }

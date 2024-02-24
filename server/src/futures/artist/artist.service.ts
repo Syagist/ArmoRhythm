@@ -5,6 +5,7 @@ import {CreateArtistDto} from "./dto/create-artist.dto";
 import {FileService, FileType} from "../../file/file.service";
 import ObjectId = Types.ObjectId;
 import {Artist} from "./schemas/artist.schema";
+import {Track} from "../track/schemas/track.schema";
 
 @Injectable()
 
@@ -23,6 +24,7 @@ export class ArtistService {
         return this.artistModel.find().skip(offset).limit(count);
     }
 
+
     async getOne(id: ObjectId) {
         return this.artistModel.findById(id)
             .populate('tracks');
@@ -31,5 +33,13 @@ export class ArtistService {
     async delete(id: ObjectId) {
         const track = await this.artistModel.findByIdAndDelete(id);
         return track._id;
+    }
+
+    async search(query: string) {
+        const artists = await this.artistModel.find(
+            {name: {$regex: new RegExp(query,'i')}}
+        );
+
+        return artists;
     }
 }

@@ -25,10 +25,11 @@ interface FetchArtistsErrorAction {
     type: ArtistsActionTypes.FETCH_ARTISTS_ERROR;
     payload: string
 }
-export interface ArtistsAutoCompleteProps {
-    artists: IArtist[]
 
+export interface ArtistsAutoCompleteProps {
+    onArtistChanged: (IArtist) => void
 }
+
 export interface ArtistProps {
     artist: IArtist
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import StepWrapper from "@/components/ui/StepWrapper";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -8,10 +8,8 @@ import Box from '@mui/material/Box';
 import FileUpload from "@/components/fileUpload/FileUpload";
 import {useInput} from "@/hooks/useInput";
 import {host} from "@/api";
-import {useTypedSelector} from "@/hooks/useTypedSelector";
 import {STATUS_CREATED} from "@/utils/api_constants";
-import {useDispatch} from "react-redux";
-import {fetchArtists} from "@/store/actions-creators/artists";
+import ArtistSelection from "@/components/admin/components/ArtistSelection";
 
 const CreateTrack = () => {
     const [activeStep, setActiveStep] = useState(0)
@@ -20,17 +18,7 @@ const CreateTrack = () => {
     const name = useInput('')
     const artist = useInput('')
     const text = useInput('')
-    const {artists,} = useTypedSelector(state => state.artists)
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        const getArtists = async () => {
-            // await dispatch(fetchArtists());
-        };
-
-        getArtists();
-    }, [dispatch]);
 
     const next = () => {
         if (activeStep !== 2) {
@@ -58,6 +46,9 @@ const CreateTrack = () => {
     const back = () => {
         setActiveStep(prev => prev - 1);
     }
+    const handleArtists = (artists) => {
+        console.log(artists)
+    }
 
     return (
         <Grid container direction={"column"} style={{padding: 20}}>
@@ -68,17 +59,13 @@ const CreateTrack = () => {
                     <StepWrapper activeStep={activeStep}>
                         {activeStep === 0 &&
                             <Grid container direction={"column"} style={{padding: 20}}>
-                                {/*<SearchWithSelection artists={artists} />*/}
+                                <ArtistSelection onArtistChanged={handleArtists}/>
                                 <TextField
                                     {...name}
                                     style={{marginTop: 10}}
                                     label={"Track name"}
                                 />
-                                <TextField
-                                    {...artist}
-                                    style={{marginTop: 10}}
-                                    label={"Artist name"}
-                                />
+
                                 <TextField
                                     {...text}
                                     style={{marginTop: 10}}

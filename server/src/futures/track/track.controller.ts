@@ -23,6 +23,12 @@ export class TrackController {
         return this.trackService.create(dto, picture[0], audio[0]);
     }
 
+
+    @Get('/search')
+    search(@Query('query',) query: string) {
+        return this.trackService.search(query);
+    }
+
     @Get()
     getAll(@Query('count') count: number, @Query('offset') offset: number) {
         return this.trackService.getAll(count, offset);
@@ -48,8 +54,4 @@ export class TrackController {
         return this.trackService.listen(id);
     }
 
-    @Get('/search')
-    search(@Query('query',) query: string) {
-        return this.trackService.search(query);
-    }
 }
