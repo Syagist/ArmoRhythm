@@ -9,7 +9,7 @@ import FileUpload from "@/components/fileUpload/FileUpload";
 import {useInput} from "@/hooks/useInput";
 import {host} from "@/api";
 import {STATUS_CREATED} from "@/utils/api_constants";
-import ArtistSelection from "@/components/admin/components/ArtistSelection";
+import ArtistSelection from "@/components/admin/ui/ArtistSelection";
 
 const CreateTrack = () => {
     const [activeStep, setActiveStep] = useState(0)
