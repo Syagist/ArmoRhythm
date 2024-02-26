@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import FileUpload from "@/components/fileUpload/FileUpload";
 import {useInput} from "@/hooks/useInput";
 import {host} from "@/api";
-
 const CreateArtist = () => {
     const [picture, setPicture] = useState(null)
     const name = useInput('')
