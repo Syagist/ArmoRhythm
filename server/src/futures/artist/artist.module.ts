@@ -1,17 +1,15 @@
-import {Module} from "@nestjs/common";
-import {ArtistController} from "./artist.controller";
-import {ArtistService} from "./artist.service";
-import {MongooseModule} from "@nestjs/mongoose";
-import {Artist, ArtistSchema} from "./schemas/artist.schema";
-import {FileService} from "../../file/file.service";
+import { Module } from '@nestjs/common';
+import { ArtistController } from './artist.controller';
+import { ArtistService } from './artist.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Artist, ArtistSchema } from './schemas/artist.schema';
+import { FileService } from '../../file/file.service';
 
 @Module({
-    imports: [
-        MongooseModule.forFeature([{name:Artist.name,schema:ArtistSchema}]),
-    ],
-    controllers:[ArtistController],
-    providers:[ArtistService, FileService]
+  imports: [
+    MongooseModule.forFeature([{ name: Artist.name, schema: ArtistSchema }]),
+  ],
+  controllers: [ArtistController],
+  providers: [ArtistService, FileService],
 })
-export default class ArtistModule {
-
-}
+export default class ArtistModule {}

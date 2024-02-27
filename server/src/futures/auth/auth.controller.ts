@@ -1,55 +1,69 @@
-import {AuthService} from "./auth.service";
-import {Body, Controller, HttpStatus, Post, UnauthorizedException, UploadedFiles} from "@nestjs/common";
+import { AuthService } from './auth.service';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Post,
+  UnauthorizedException,
+  UploadedFiles,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import {RegisterDto} from "./dto/register.dto";
-import {UserService} from "../user/user.service";
-import {LoginDto} from "./dto/login.dto";
-import {ValidationException} from "../../common/exceptions/validation.exception";
+import { RegisterDto } from './dto/register.dto';
+import { UserService } from '../user/user.service';
+import { LoginDto } from './dto/login.dto';
+import { ValidationException } from '../../common/exceptions/validation.exception';
 
 @Controller('/auth')
-
 export class AuthController {
-    constructor(private authService: AuthService, private userService: UserService) {
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+  ) {}
+
+  @Post('/register')
+  async register(@UploadedFiles() files, @Body() dto: RegisterDto) {
+    const errors = await this.authService.validateAuthDto(dto);
+    if (errors.length > 0) {
+      throw new ValidationException('Validation failed', errors);
     }
 
-    @Post('/register')
-    async register(@UploadedFiles() files, @Body() dto: RegisterDto) {
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const user = await this.userService.create(
+      {
+        email: dto.email,
+        password: hashedPassword,
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+      },
+      files,
+    );
 
-        const errors = await this.authService.validateAuthDto(dto);
-        if (errors.length > 0) {
-            throw new ValidationException('Validation failed', errors);
-        }
+    return this.authService.login(user);
+  }
 
-        const hashedPassword = await bcrypt.hash(dto.password, 10);
-        const user = await this.userService.create({
-            email: dto.email,
-            password: hashedPassword,
-            firstName: dto.firstName,
-            lastName: dto.lastName,
-        }, files);
-
-        return this.authService.login(user);
+  @Post('/login')
+  async login(@Body() dto: LoginDto) {
+    const errors = await this.authService.validateAuthDto(dto);
+    if (errors.length > 0) {
+      throw new ValidationException('Validation failed', errors);
     }
 
-    @Post('/login')
-    async login(@Body() dto: LoginDto) {
-        const errors = await this.authService.validateAuthDto(dto);
-        if (errors.length > 0) {
-            throw new ValidationException('Validation failed', errors);
-        }
+    const user = await this.userService.getUserByEmail(dto.email);
 
-        const user = await this.userService.getUserByEmail(dto.email);
-
-        if (!user) {
-            throw new ValidationException('User not found', ['User not found'], HttpStatus.NOT_FOUND);
-        }
-
-        const passwordMatch = await bcrypt.compare(dto.password, user.password);
-
-        if (!passwordMatch) {
-            throw new UnauthorizedException('Invalid credentials');
-        }
-
-        return this.authService.login(user);
+    if (!user) {
+      throw new ValidationException(
+        'User not found',
+        ['User not found'],
+        HttpStatus.NOT_FOUND,
+      );
     }
+
+    const passwordMatch = await bcrypt.compare(dto.password, user.password);
+
+    if (!passwordMatch) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    return this.authService.login(user);
+  }
 }

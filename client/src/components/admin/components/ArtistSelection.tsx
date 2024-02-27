@@ -28,7 +28,7 @@ const ArtistSelection : React.FC<ArtistsAutoCompleteProps> = ({onArtistChanged})
                     multiple
                     id="tags-outlined"
                     options={artists}
-                    getOptionLabel={(option) => option.name}
+                    // getOptionLabel={(option) => option?.name}
                     filterSelectedOptions
                     onChange={(event, selectedOptions) => {
                         if (onArtistChanged) {

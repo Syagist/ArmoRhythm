@@ -21,7 +21,7 @@ const Index = () => {
                 <Card style={{width: 900}}>
                     <Box p={3}>
                         <Grid container justifyContent='space-between'>
-                            <h1>{user.email}</h1>
+                            <h1>{user?.email}</h1>
                         </Grid>
                     </Box>
                 </Card>
