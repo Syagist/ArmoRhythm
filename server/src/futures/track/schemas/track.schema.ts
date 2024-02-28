@@ -26,8 +26,8 @@ export class Track {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Artist' }] })
   artists: Artist[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Album' }] })
-  album: Album[];
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Album' })
+  album: Album;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
   comments: Comment[];

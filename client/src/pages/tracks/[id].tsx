@@ -15,7 +15,7 @@ const TrackPage = ({ serverTrack }) => {
   const router = useRouter();
   const username = useInput("");
   const text = useInput("");
-
+  console.log(serverTrack);
   const addComment = async () => {
     try {
       const response = await host.post(`/tracks/comment`, {
@@ -31,13 +31,13 @@ const TrackPage = ({ serverTrack }) => {
 
   return (
     <MainLayout
-      title={"Listening ArmoRhythm - " + track.name + " - " + track.artist}
-      keywords={"Track, Artists, " + track.name + ", " + track.artist}
+      title={"Listening ArmoRhythm - " + track.name + " - " + "track.artist"}
+      keywords={"Track, Artists, " + track.name + ", " + "track.artist"}
     >
       <Button
         variant={"outlined"}
         style={{ fontSize: 32 }}
-        onClick={() => router.push("/createTrack")}
+        onClick={() => router.push("/tracks")}
       >
         To Tracklist
       </Button>
@@ -45,7 +45,7 @@ const TrackPage = ({ serverTrack }) => {
         <img src={BASE_API + track.picture} width={200} height={200} />
         <div style={{ marginLeft: 30 }}>
           <h1>Trackname - {track.name}</h1>
-          <h1>Artist - {track.artist}</h1>
+          <h1>Artist - {"track.artist"}</h1>
           <h1>Listens - {track.listens}</h1>
         </div>
       </Grid>

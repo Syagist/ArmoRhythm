@@ -21,7 +21,7 @@ export class TrackService {
     picture,
     audio,
     artistIds: string[],
-    albumIds: string[],
+    albumId: string,
   ): Promise<Track> {
     const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
     const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
@@ -31,16 +31,26 @@ export class TrackService {
       audio: audioPath,
       picture: picturePath,
       artists: artistIds,
-      album: albumIds,
+      album: albumId,
     });
   }
 
   async getAll(count = 10, offset = 0): Promise<Track[]> {
-    return this.trackModel.find().skip(offset).limit(count);
+    return await this.trackModel
+      .find()
+      .skip(offset)
+      .limit(count)
+      .populate('album')
+      .populate('artists')
+      .exec();
   }
 
   async getOne(id: ObjectId) {
-    return this.trackModel.findById(id).populate('comments');
+    return await this.trackModel
+      .findById(id)
+      .populate('album')
+      .populate('artists')
+      .exec();
   }
 
   async delete(id: ObjectId) {

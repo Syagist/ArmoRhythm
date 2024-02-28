@@ -10,14 +10,18 @@ import { useInput } from "@/hooks/useInput";
 import { host } from "@/api";
 import { STATUS_CREATED } from "@/utils/api_constants";
 import ArtistSelection from "@/components/admin/components/ArtistSelection";
+import AlbumSelection from "@/components/admin/components/AlbumSelection";
+import { IArtist } from "@/types/artist";
+import { IAlbum } from "@/types/album";
 
 const CreateTrack = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [picture, setPicture] = useState(null);
   const [audio, setAudio] = useState(null);
   const name = useInput("");
-  const artist = useInput("");
   const text = useInput("");
+  const [artists, setArtists] = useState([]);
+  const [album, setAlbum] = useState(null);
 
   const next = () => {
     if (activeStep !== 2) {
@@ -25,20 +29,15 @@ const CreateTrack = () => {
     } else {
       const formData = new FormData();
       formData.append("name", name.value);
-      const artistIds = ["65dd7c0c022a0d61d628e4cb"];
-      artistIds.forEach((artistId) => {
-        formData.append("artistIds", artistId);
-      });
-      const albumIds = ["65dd7c0c022a0d61d628e4cb"];
-      albumIds.forEach((albumIds) => {
-        formData.append("albumIds", albumIds);
-      });
-      formData.append("albumIds", "");
-      formData.append("name", name.value);
       formData.append("text", text.value);
-      formData.append("artist", artist.value);
       formData.append("picture", picture);
       formData.append("audio", audio);
+      artists.forEach((artist) => {
+        formData.append("artistIds", artist._id);
+      });
+
+      formData.append("albumId", album._id);
+
       host
         .post(`/tracks`, formData)
         .then((resp) => {
@@ -56,8 +55,13 @@ const CreateTrack = () => {
   const back = () => {
     setActiveStep((prev) => prev - 1);
   };
-  const handleArtists = (artists) => {
-    console.log(artists);
+
+  const handleArtists = (artists: IArtist[]) => {
+    setArtists(artists);
+  };
+
+  const handleAlbum = (selectedAlbum: IAlbum) => {
+    setAlbum(selectedAlbum);
   };
 
   return (
@@ -70,6 +74,7 @@ const CreateTrack = () => {
             {activeStep === 0 && (
               <Grid container direction={"column"} style={{ padding: 20 }}>
                 <ArtistSelection onArtistChanged={handleArtists} />
+                <AlbumSelection onAlbumChanged={handleAlbum} />
                 <TextField
                   {...name}
                   style={{ marginTop: 10 }}

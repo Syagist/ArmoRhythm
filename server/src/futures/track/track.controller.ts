@@ -12,7 +12,6 @@ import {
 import { TrackService } from './track.service';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { Types } from 'mongoose';
-import { CreateCommentDto } from './dto/create-comment.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import ObjectId = Types.ObjectId;
 
@@ -31,7 +30,7 @@ export class TrackController {
     @UploadedFiles() files,
     @Body() dto: CreateTrackDto,
     @Body('artistIds') artistIds: string[],
-    @Body('albumIds') albumIds: string[],
+    @Body('albumId') albumId: string,
   ) {
     const { picture, audio } = files;
     return this.trackService.create(
@@ -39,7 +38,7 @@ export class TrackController {
       picture[0],
       audio[0],
       artistIds,
-      albumIds,
+      albumId,
     );
   }
 

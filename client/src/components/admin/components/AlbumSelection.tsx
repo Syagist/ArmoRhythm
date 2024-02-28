@@ -3,48 +3,47 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import { ArtistsAutoCompleteProps, IArtist } from "@/types/artist";
-import { searchArtists } from "@/store/actions-creators/artists";
 import { debounce } from "@/utils/debounce";
+import { AlbumsAutoCompleteProps, IAlbum } from "@/types/album";
+import { searchAlbums } from "@/store/actions-creators/albums";
 
-const ArtistSelection: React.FC<ArtistsAutoCompleteProps> = ({
-  onArtistChanged,
+const AlbumSelection: React.FC<AlbumsAutoCompleteProps> = ({
+  onAlbumChanged,
 }) => {
-  const [artists, setArtists] = useState(null);
+  const [artists, setAlbums] = useState(null);
 
-  const getArtists = debounce(async (key: string) => {
-    setArtists(await searchArtists(key));
+  const getAlbums = debounce(async (key: string) => {
+    setAlbums(await searchAlbums(key));
   }, 1000);
 
   useEffect(() => {
-    getArtists("a");
+    getAlbums("a");
   }, []);
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    getArtists(event.target.value);
+    getAlbums(event.target.value);
   };
 
   return (
     <Stack spacing={3} sx={{ width: 500 }}>
       {artists && (
         <Autocomplete
-          multiple
           id="tags-outlined"
           options={artists}
-          getOptionLabel={(option: IArtist) => option?.name}
+          getOptionLabel={(option: IAlbum) => option?.name}
           filterSelectedOptions
-          onChange={(event, selectedOptions: IArtist[]) => {
-            if (onArtistChanged) {
-              onArtistChanged(selectedOptions);
+          onChange={(event, selectedOptions) => {
+            if (onAlbumChanged) {
+              onAlbumChanged(selectedOptions);
             }
           }}
           renderInput={(params) => (
             <TextField
               {...params}
               label="filterSelectedOptions"
-              placeholder="Select Artist"
+              placeholder="Select Album"
               onChange={handleInputChange}
             />
           )}
@@ -53,4 +52,4 @@ const ArtistSelection: React.FC<ArtistsAutoCompleteProps> = ({
     </Stack>
   );
 };
-export default ArtistSelection;
+export default AlbumSelection;
