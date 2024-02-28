@@ -9,6 +9,7 @@ import TrackModule from './futures/track/track.module';
 import AuthModule from './futures/auth/auth.module';
 import UserModule from './futures/user/user.module';
 import ArtistModule from './futures/artist/artist.module';
+import AlbumModule from './futures/album/album.module';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ dotenv.config();
     }),
     TrackModule,
     ArtistModule,
+    AlbumModule,
     AuthModule,
     UserModule,
     FileModule,

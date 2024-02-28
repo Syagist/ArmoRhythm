@@ -4,7 +4,7 @@ import { Track } from './schemas/track.schema';
 import { Comment } from './schemas/comment.schema';
 import { Model, Types } from 'mongoose';
 import { CreateTrackDto } from './dto/create-track.dto';
-import { CreateCommentDto } from './dto/create-comment.dto';
+// import { CreateCommentDto } from './dto/create-comment.dto';
 import { FileService, FileType } from '../../file/file.service';
 import ObjectId = Types.ObjectId;
 
@@ -48,13 +48,13 @@ export class TrackService {
     return track._id;
   }
 
-  async addComment(dto: CreateCommentDto): Promise<Comment> {
-    const track = await this.trackModel.findById(dto.trackId);
-    const comment = await this.commentModel.create({ ...dto });
-    track.comments.push(comment._id);
-    await track.save();
-    return comment;
-  }
+  // async addComment(dto: CreateCommentDto): Promise<Comment> {
+  //   const track = await this.trackModel.findById(dto.trackId);
+  //   const comment = await this.commentModel.create({ ...dto });
+  //   track.comments.push(comment._id);
+  //   await track.save();
+  //   return comment;
+  // }
 
   async listen(id: ObjectId) {
     const track = await this.trackModel.findById(id);
