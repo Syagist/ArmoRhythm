@@ -37,8 +37,17 @@ export class ArtistService {
       return null;
     }
 
-    artist.tracks = await this.trackModel.find({ artists: artist.id }).exec();
+    artist.tracks = await this.trackModel
+      .find({ artists: artist.id })
+      .populate('artists')
+      .exec();
 
+    artist.albums = await this.albumModel
+      .find({ artists: artist.id })
+      .populate('artists')
+      .exec();
+    console.log('12312313');
+    console.log(artist.albums);
     return artist;
   }
 

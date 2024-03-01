@@ -13,13 +13,21 @@ export class AlbumService {
     private fileService: FileService,
   ) {}
 
-  async create(dto: CreateAlbumDto, picture): Promise<Album> {
+  async create(
+    dto: CreateAlbumDto,
+    picture,
+    artistIds: string[],
+  ): Promise<Album> {
     const picturePath = this.fileService.createFile(
       FileType.IMAGE,
       picture,
       'albums',
     );
-    return this.albumModel.create({ ...dto, picture: picturePath });
+    return this.albumModel.create({
+      ...dto,
+      artists: artistIds,
+      picture: picturePath,
+    });
   }
 
   async getAll(count = 10, offset = 0): Promise<Album[]> {

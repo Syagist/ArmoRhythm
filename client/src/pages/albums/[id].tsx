@@ -6,45 +6,43 @@ import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { BASE_API } from "@/utils/api_constants";
 import { host } from "@/api";
-import { IArtist } from "@/types/artist";
+import { IAlbum } from "@/types/album";
 import TrackList from "@/components/track/TrackList";
-import AlbumList from "@/components/album/AlbumList";
 
-const ArtistPage = ({ serverArtist }) => {
+const AlbumPage = ({ serverAlbum }) => {
   const router = useRouter();
-  const [artist, setArtist] = useState<IArtist>(serverArtist);
+  const [album, setAlbum] = useState<IAlbum>(serverAlbum);
 
   return (
     <MainLayout
-      title={"Listening ArmoRhythm - " + artist.name + " - " + "artist.artist"}
-      keywords={"Track, Artists, " + artist.name + ", " + "artist.artist"}
+      title={"Listening ArmoRhythm - " + album.name + " - " + "albums.albums"}
+      keywords={"Track, Albums, " + album.name + ", " + "albums.albums"}
     >
       <Button
         variant={"outlined"}
         style={{ fontSize: 32 }}
-        onClick={() => router.push("/artists")}
+        onClick={() => router.push("/albums")}
       >
-        To Artistlist
+        To Albums
       </Button>
       <Grid container style={{ margin: "20px 0" }}>
-        <img src={`${BASE_API}/${artist.picture}`} width={200} height={200} />
+        <img src={`${BASE_API}/${album.picture}`} width={200} height={200} />
         <div style={{ marginLeft: 30 }}>
-          <h1>Artist Name - {artist.name}</h1>
-          <TrackList tracks={artist.tracks} />
-          <AlbumList albums={artist.albums} />
+          <h1>Album Name - {album.name}</h1>
+          <TrackList tracks={album.tracks} />
         </div>
       </Grid>
     </MainLayout>
   );
 };
 
-export default ArtistPage;
+export default AlbumPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const response = await host.get(`/artists/` + params.id);
+  const response = await host.get(`/albums/` + params.id);
   return {
     props: {
-      serverArtist: response.data,
+      serverAlbum: response.data,
     },
   };
 };

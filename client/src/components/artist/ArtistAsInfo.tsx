@@ -15,9 +15,10 @@ const ArtistAsInfo: React.FC<ArtistsProps & { count?: number }> = ({
     event.stopPropagation();
     router.push("/artists/" + artist._id);
   };
-
+  console.log("123");
+  console.log(artists);
   return (
-    <div>
+    <>
       {artists &&
         artists.map((artist, index) => {
           return index < count ? (
@@ -26,13 +27,14 @@ const ArtistAsInfo: React.FC<ArtistsProps & { count?: number }> = ({
               key={artist._id}
               style={{ fontSize: 12, color: "gray" }}
             >
-              {artist.name} {index < count - 1 ? " / " : ""}
+              {artist.name}
+              {index < count - 1 && artists.length > 1 ? " / " : ""}
             </div>
           ) : (
             <></>
           );
         })}
-    </div>
+    </>
   );
 };
 
