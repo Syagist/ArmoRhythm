@@ -1,6 +1,10 @@
+import { ITrack } from "@/types/track";
+
 export interface IArtist {
   _id: string;
   name: string;
+  picture: string;
+  tracks: ITrack[];
 }
 
 export interface ArtistsState {
@@ -27,8 +31,8 @@ export interface ArtistsAutoCompleteProps {
   onArtistChanged: (IArtist) => void;
 }
 
-export interface ArtistProps {
-  artist: IArtist;
+export interface ArtistsProps {
+  artists: IArtist[];
 }
 
 export type ArtistsAction = FetchArtistsAction | FetchArtistsErrorAction;

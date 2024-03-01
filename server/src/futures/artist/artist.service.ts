@@ -4,12 +4,16 @@ import { Model, Types } from 'mongoose';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { FileService, FileType } from '../../file/file.service';
 import { Artist } from './schemas/artist.schema';
+import { Track } from '../track/schemas/track.schema';
 import ObjectId = Types.ObjectId;
+import { Album } from '../album/schemas/album.schema';
 
 @Injectable()
 export class ArtistService {
   constructor(
     @InjectModel(Artist.name) private artistModel: Model<Artist>,
+    @InjectModel(Track.name) private trackModel: Model<Track>,
+    @InjectModel(Album.name) private albumModel: Model<Album>,
     private fileService: FileService,
   ) {}
 
@@ -27,7 +31,15 @@ export class ArtistService {
   }
 
   async getOne(id: ObjectId) {
-    return this.artistModel.findById(id).populate('tracks');
+    const artist = await this.artistModel.findById(id).exec();
+
+    if (!artist) {
+      return null;
+    }
+
+    artist.tracks = await this.trackModel.find({ artists: artist.id }).exec();
+
+    return artist;
   }
 
   async delete(id: ObjectId) {

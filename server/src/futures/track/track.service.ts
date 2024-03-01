@@ -6,6 +6,7 @@ import { Model, Types } from 'mongoose';
 import { CreateTrackDto } from './dto/create-track.dto';
 // import { CreateCommentDto } from './dto/create-comment.dto';
 import { FileService, FileType } from '../../file/file.service';
+import { Artist } from '../artist/schemas/artist.schema';
 import ObjectId = Types.ObjectId;
 
 @Injectable()
@@ -13,6 +14,7 @@ export class TrackService {
   constructor(
     @InjectModel(Track.name) private trackModel: Model<Track>,
     @InjectModel(Comment.name) private commentModel: Model<Comment>,
+    @InjectModel(Artist.name) private artistModel: Model<Artist>,
     private fileService: FileService,
   ) {}
 
@@ -25,6 +27,7 @@ export class TrackService {
   ): Promise<Track> {
     const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
     const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
+
     return this.trackModel.create({
       ...dto,
       listens: 0,

@@ -3,13 +3,13 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import { NextThunkDispatch, wrapper } from "@/store";
-import { fetchTracks } from "@/store/actions-creators/track";
 import MainLayout from "@/layouts/MainLayout";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
-import TrackList from "@/components/track/TrackList";
+import { fetchArtists } from "@/store/actions-creators/artists";
+import ArtistsList from "@/components/artist/ArtistsList";
 
 const Index = () => {
-  const { tracks, error } = useTypedSelector((state) => state.track);
+  const { artists, error } = useTypedSelector((state) => state.artists);
 
   if (error) {
     return (
@@ -23,12 +23,12 @@ const Index = () => {
     <MainLayout title={"Track list for Music Platform"}>
       <Grid container justifyContent="center">
         <Card style={{ width: 900 }}>
-          <Box p={3}>
+          <Box p={4}>
             <Grid container justifyContent="space-between">
               <h1>Track List</h1>
             </Grid>
           </Box>
-          <TrackList tracks={tracks} />
+          <ArtistsList artists={artists} />
         </Card>
       </Grid>
     </MainLayout>
@@ -39,6 +39,6 @@ export default Index;
 export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store }) => {
     const dispatch = store.dispatch as NextThunkDispatch;
-    await dispatch(fetchTracks());
+    await dispatch(fetchArtists());
   },
 );

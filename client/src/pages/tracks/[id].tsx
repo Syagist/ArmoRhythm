@@ -42,7 +42,7 @@ const TrackPage = ({ serverTrack }) => {
         To Tracklist
       </Button>
       <Grid container style={{ margin: "20px 0" }}>
-        <img src={BASE_API + track.picture} width={200} height={200} />
+        <img src={`${BASE_API}/${track.picture}`} width={200} height={200} />
         <div style={{ marginLeft: 30 }}>
           <h1>Trackname - {track.name}</h1>
           <h1>Artist - {"track.artist"}</h1>
