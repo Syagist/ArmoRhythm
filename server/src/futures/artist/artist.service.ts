@@ -5,8 +5,8 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { FileService, FileType } from '../../file/file.service';
 import { Artist } from './schemas/artist.schema';
 import { Track } from '../track/schemas/track.schema';
-import ObjectId = Types.ObjectId;
 import { Album } from '../album/schemas/album.schema';
+import ObjectId = Types.ObjectId;
 
 @Injectable()
 export class ArtistService {
@@ -46,7 +46,6 @@ export class ArtistService {
       .find({ artists: artist.id })
       .populate('artists')
       .exec();
-    console.log('12312313');
     console.log(artist.albums);
     return artist;
   }
