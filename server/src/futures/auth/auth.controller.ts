@@ -2,7 +2,9 @@ import { AuthService } from './auth.service';
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
+  Param,
   Post,
   UnauthorizedException,
   UploadedFiles,
@@ -12,6 +14,7 @@ import { RegisterDto } from './dto/register.dto';
 import { UserService } from '../user/user.service';
 import { LoginDto } from './dto/login.dto';
 import { ValidationException } from '../../common/exceptions/validation.exception';
+import { ObjectId } from 'mongoose';
 
 @Controller('/auth')
 export class AuthController {
@@ -65,5 +68,10 @@ export class AuthController {
     }
 
     return this.authService.login(user);
+  }
+
+  @Get(':id')
+  getOne(@Param('id') id: ObjectId) {
+    return this.userService.getUserById(id);
   }
 }

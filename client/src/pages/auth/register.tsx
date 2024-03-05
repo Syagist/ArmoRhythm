@@ -50,7 +50,7 @@ const Register = () => {
           email: values.email,
           password: values.password,
         });
-        await router.push("/profile/" + response._id);
+        // await router.push("/profile/" + response._id);
       } catch (e) {
         console.log(e);
       }

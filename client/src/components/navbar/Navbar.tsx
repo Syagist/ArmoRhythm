@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,6 +16,7 @@ import { AppBar, Typography } from "@mui/material";
 import navStyles from "../../styles/Navbar.module.scss";
 import { Button as BaseButton } from "@mui/base/Button";
 import LanguageSelect from "../ui/LanguageSelect";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
 
 const menuItems = [
   { text: "Main", icon: <InboxIcon />, href: "/" },
@@ -25,7 +26,13 @@ const menuItems = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const { user, error } = useTypedSelector((state) => state.user);
 
+  useEffect(() => {
+    console.log("11111");
+    console.log(user);
+    console.log("2222");
+  }, [user]);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
