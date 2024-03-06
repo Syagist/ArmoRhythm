@@ -9,6 +9,7 @@ import {
 import { ThunkDispatch } from "redux-thunk";
 import { host } from "@/api";
 import { STATUS_OK } from "@/utils/api_constants";
+import { useActions } from "@/hooks/useActions";
 
 type AppDispatch = Dispatch<UserAction> &
   ThunkDispatch<UserState, void, UserAction>;
@@ -18,6 +19,7 @@ export const fetchUser = (id: string) => {
     try {
       const response = await host.get(`/user/${id}`);
       dispatch({ type: UserActionTypes.FETCH_USER, payload: response.data });
+      setUser(response.data);
     } catch (e) {
       dispatch({
         type: UserActionTypes.FETCH_USER_ERROR,

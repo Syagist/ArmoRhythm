@@ -10,27 +10,17 @@ import {
   decodeAccessToken,
   getAccessTokenFromCookie,
   getRefreshTokenFromCookie,
-} from "../utils/cookieUtils";
+} from "@/utils/cookieUtils";
+
 import { fetchUser } from "@/store/actions-creators/user";
-import { fetchTracks } from "@/store/actions-creators/track";
 import { useDispatch } from "react-redux";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { user, error } = useTypedSelector((state) => state.user);
-  const { setUser } = useActions();
   const dispatch = useDispatch() as NextThunkDispatch;
 
-  const getUser = async () => {
-    const accessToken = getAccessTokenFromCookie();
-    const refreshToken = getRefreshTokenFromCookie();
-    if (accessToken && refreshToken) {
-      const user = decodeAccessToken(accessToken);
-      await dispatch(fetchUser(user.id));
-      setUser(user);
-    }
-  };
-
   useEffect(() => {
+    //TODO fix bug every time dispatched fetchUser
     const getUser = async () => {
       const accessToken = getAccessTokenFromCookie();
       const refreshToken = getRefreshTokenFromCookie();
@@ -43,7 +33,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     if (!user) {
       getUser();
     }
-  }, []);
+  }, [user]);
 
   return <Component {...pageProps} />;
 };

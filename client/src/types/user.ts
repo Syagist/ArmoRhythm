@@ -10,6 +10,7 @@ export interface UserRegisterRequest {
   lastName: string;
   email: string;
   password: string;
+  picture: File;
 }
 
 export interface UserModel {

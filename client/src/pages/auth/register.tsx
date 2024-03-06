@@ -43,12 +43,14 @@ const Register = () => {
     },
     validationSchema: registrationValidationSchema,
     onSubmit: async (values) => {
+      console.log(picture);
       try {
         const response = await register({
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,
           password: values.password,
+          picture: picture.file,
         });
         // await router.push("/profile/" + response._id);
       } catch (e) {
