@@ -13,10 +13,12 @@ import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './dto/register.dto';
 import { UserService } from '../user/user.service';
 import { LoginDto } from './dto/login.dto';
-import { ValidationException } from '../../common/exceptions/validation.exception';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ValidationException } from 'src/common/exceptions/validation.exception';
+import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
 import { ApiStandardResponses } from 'src/common/decorators/api-response.decorator';
+import { plainToClass } from 'class-transformer';
+import { AuthUserDto } from './dto/auth-user';
 
 @ApiTags('auth')
 @Controller('/auth')
@@ -81,7 +83,9 @@ export class AuthController {
   @Get(':id')
   @ApiOperation({ summary: 'User Check Auth' })
   @ApiStandardResponses()
-  getOne(@Param('id') id: ObjectId) {
-    return this.userService.getUserById(id);
+  @ApiParam({ name: 'id', description: 'User ID', type: String })
+  async getOne(@Param('id') id: ObjectId) : Promise<AuthUserDto> {
+    const user = await this.userService.getUserById(id); 
+    return plainToClass(AuthUserDto, user, { excludeExtraneousValues: true });
   }
 }
