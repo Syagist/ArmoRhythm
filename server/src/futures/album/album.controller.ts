@@ -21,9 +21,13 @@ export class AlbumController {
 
   @Post()
   @UseInterceptors(FileFieldsInterceptor([{ name: 'picture', maxCount: 1 }]))
-  create(@UploadedFiles() files, @Body() dto: CreateAlbumDto) {
+  create(
+    @UploadedFiles() files,
+    @Body() dto: CreateAlbumDto,
+    @Body('artistIds') artistIds: string[],
+  ) {
     const { picture } = files;
-    return this.albumService.create(dto, picture[0]);
+    return this.albumService.create(dto, picture[0], artistIds);
   }
 
   @Get('/search')

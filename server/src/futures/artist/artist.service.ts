@@ -5,8 +5,8 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { FileService, FileType } from '../../file/file.service';
 import { Artist } from './schemas/artist.schema';
 import { Track } from '../track/schemas/track.schema';
-import ObjectId = Types.ObjectId;
 import { Album } from '../album/schemas/album.schema';
+import ObjectId = Types.ObjectId;
 
 @Injectable()
 export class ArtistService {
@@ -37,8 +37,16 @@ export class ArtistService {
       return null;
     }
 
-    artist.tracks = await this.trackModel.find({ artists: artist.id }).exec();
+    artist.tracks = await this.trackModel
+      .find({ artists: artist.id })
+      .populate('artists')
+      .exec();
 
+    artist.albums = await this.albumModel
+      .find({ artists: artist.id })
+      .populate('artists')
+      .exec();
+    console.log(artist.albums);
     return artist;
   }
 

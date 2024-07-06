@@ -1,10 +1,12 @@
 import { ITrack } from "@/types/track";
+import { IAlbum } from "@/types/album";
 
 export interface IArtist {
   _id: string;
   name: string;
   picture: string;
   tracks: ITrack[];
+  albums: IAlbum[];
 }
 
 export interface ArtistsState {
