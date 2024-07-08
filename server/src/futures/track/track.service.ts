@@ -13,26 +13,21 @@ export class TrackService {
     @InjectModel(Track.name) private trackModel: Model<Track>,
     @InjectModel(Artist.name) private artistModel: Model<Artist>,
     private fileService: FileService,
-  ) {}
+  ) { }
 
   async create(
     dto: CreateTrackDto,
-    picture,
-    audio,
     artistIds: string[],
     albumId: string,
   ): Promise<Track> {
-    const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
-    const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
-
-    return this.trackModel.create({
+    const castedAlbumId = new Types.ObjectId(albumId);
+    const track = await this.trackModel.create({
       ...dto,
       listens: 0,
-      audio: audioPath,
-      picture: picturePath,
-      artists: artistIds,
-      album: albumId,
+      artists: ['65e185b34e390c07443d36fa','65e185b34e390c07443d36fa'],
+      album: castedAlbumId,
     });
+    return track;
   }
 
   async getAll(count = 10, offset = 0): Promise<Track[]> {

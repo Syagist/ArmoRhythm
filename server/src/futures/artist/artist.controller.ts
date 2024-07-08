@@ -20,7 +20,7 @@ import { ApiStandardResponses } from 'src/common/decorators/api-response.decorat
 @ApiTags('artists')
 @Controller('/artists')
 export class ArtistController {
-  constructor(private artistService: ArtistService) {}
+  constructor(private artistService: ArtistService) { }
 
   @ApiOperation({ summary: 'Create Artist' })
   @ApiStandardResponses()
@@ -55,7 +55,7 @@ export class ArtistController {
     return this.artistService.getOne(id);
   }
 
-  @ApiOperation({ summary: 'Artst Album' })
+  @ApiOperation({ summary: 'Delete Artist' })
   @ApiStandardResponses()
   @Delete(':id')
   @ApiParam({ name: 'id', description: 'Artst ID', type: String })

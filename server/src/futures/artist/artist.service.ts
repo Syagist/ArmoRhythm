@@ -23,7 +23,7 @@ export class ArtistService {
       picture,
       'artists',
     );
-    return this.artistModel.create({ ...dto, picture: picturePath });
+    return await this.artistModel.create({ ...dto, picture: picturePath });
   }
 
   async getAll(count = 10, offset = 0): Promise<Artist[]> {

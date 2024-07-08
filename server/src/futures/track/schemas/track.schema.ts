@@ -18,9 +18,6 @@ export class Track {
   listens: number;
 
   @Prop()
-  picture: string;
-
-  @Prop()
   audio: string;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Artist' }] })
