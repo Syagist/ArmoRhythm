@@ -17,7 +17,7 @@ import ObjectId = Types.ObjectId;
 import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ApiStandardResponses } from 'src/common/decorators/api-response.decorator';
 
-
+@ApiTags('tracks')
 @Controller('/tracks')
 export class TrackController {
   constructor(private trackService: TrackService) {}
