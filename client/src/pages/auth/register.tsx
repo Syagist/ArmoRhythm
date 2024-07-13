@@ -11,7 +11,7 @@ import registrationValidationSchema from "@/validationSchema/registrationValidat
 import { useFormik } from "formik";
 import { register } from "@/api/auth";
 import FileUpload from "@/components/fileUpload/FileUpload";
-import { UploadedFileProps } from "@/types/components/fileUploadProps";
+import { UploadedFileDataType } from "@/types/components/fileUploadProps";
 import IconButton from "@mui/material/IconButton";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import fuStyles from "@/styles/FileUpload.module.scss";
@@ -25,7 +25,7 @@ import {
 } from "@mui/material";
 
 const Register = () => {
-  const [picture, setPicture] = useState<UploadedFileProps>({
+  const [fileData, setFileData] = useState<UploadedFileDataType>({
     file: null,
     base64: "/images/user/user-profile-default.jpg",
   });
@@ -43,14 +43,13 @@ const Register = () => {
     },
     validationSchema: registrationValidationSchema,
     onSubmit: async (values) => {
-      console.log(picture);
       try {
         const response = await register({
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,
           password: values.password,
-          picture: picture.file,
+          picture: fileData.file,
         });
         // await router.push("/profile/" + response._id);
       } catch (e) {
@@ -79,14 +78,14 @@ const Register = () => {
             Regiter and listen your favorite artists new releases
           </h1>
           <form onSubmit={formik.handleSubmit}>
-            <FileUpload setFile={setPicture} accept="image/*">
+            <FileUpload setFileData={setFileData} accept="image/*">
               <Card className={fuStyles.upload_button_box}>
                 <IconButton aria-label="upload">
                   <AddAPhotoIcon />
                 </IconButton>
               </Card>
               <Card className={fuStyles.upload_picture_wrapper}>
-                <img src={picture.base64} alt={"cover"} />
+                <img src={fileData.base64} alt={"cover"} />
               </Card>
             </FileUpload>
             <Grid container justifyContent="center" gap={2}>

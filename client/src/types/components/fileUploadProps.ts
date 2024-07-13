@@ -1,10 +1,10 @@
 export interface FileUploadProps {
-  setFile: (UploadedFileProps) => void;
+  setFileData: (UploadedFileProps) => void;
   accept: string;
   children: any;
 }
 
-export interface UploadedFileProps {
+export interface UploadedFileDataType {
   file: File | null;
   base64: string;
 }
