@@ -11,7 +11,6 @@ export enum FileType {
 @Injectable()
 export class FileService {
   createFile(type: FileType, file, subPath = 'tracks') {
-    console.log('123');
     try {
       if (!file) {
         return;
