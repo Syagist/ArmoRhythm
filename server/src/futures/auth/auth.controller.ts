@@ -84,8 +84,8 @@ export class AuthController {
   @ApiOperation({ summary: 'User Check Auth' })
   @ApiStandardResponses()
   @ApiParam({ name: 'id', description: 'User ID', type: String })
-  async getOne(@Param('id') id: ObjectId) : Promise<AuthUserDto> {
-    const user = await this.userService.getUserById(id); 
+  async getOne(@Param('id') id: ObjectId): Promise<AuthUserDto> {
+    const user = await this.userService.getUserById(id);
     return plainToClass(AuthUserDto, user, { excludeExtraneousValues: true });
   }
 }

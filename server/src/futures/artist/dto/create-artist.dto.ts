@@ -7,11 +7,18 @@ export class CreateArtistDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ type: 'string', format: 'binary', description: 'Artist cover picture' })
+  @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'Artist cover picture',
+  })
   @ApiPropertyOptional()
   picture: any;
 
-  @ApiProperty({ example: ['albumId1', 'albumId2'], description: 'Array of artist IDs' })
+  @ApiProperty({
+    example: ['albumId1', 'albumId2'],
+    description: 'Array of artist IDs',
+  })
   @ApiPropertyOptional()
   albumIds?: string[];
 }

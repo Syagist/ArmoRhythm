@@ -14,8 +14,8 @@ export class UserController {
   @ApiStandardResponses()
   @Get(':id')
   @ApiParam({ name: 'id', description: 'User ID', type: String })
-  async getOne(@Param('id') id: ObjectId) : Promise<UserDto> {
-    const user = await this.userService.getUserById(id); 
+  async getOne(@Param('id') id: ObjectId): Promise<UserDto> {
+    const user = await this.userService.getUserById(id);
     return plainToClass(UserDto, user, { excludeExtraneousValues: true });
   }
 }

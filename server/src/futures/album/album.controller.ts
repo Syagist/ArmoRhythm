@@ -14,7 +14,13 @@ import { CreateAlbumDto } from './dto/create-album.dto';
 import { Types } from 'mongoose';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import ObjectId = Types.ObjectId;
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ApiStandardResponses } from 'src/common/decorators/api-response.decorator';
 
 @ApiTags('albums')
@@ -30,9 +36,12 @@ export class AlbumController {
   @ApiBody({ type: CreateAlbumDto })
   create(@UploadedFiles() files, @Body() createAlbumDto: CreateAlbumDto) {
     const { picture } = files;
-    return this.albumService.create(createAlbumDto, picture[0], createAlbumDto.artistIds);
+    return this.albumService.create(
+      createAlbumDto,
+      picture[0],
+      createAlbumDto.artistIds,
+    );
   }
-
 
   @ApiOperation({ summary: 'Search Album' })
   @ApiStandardResponses()
@@ -40,7 +49,7 @@ export class AlbumController {
   search(@Query('query') query: string) {
     return this.albumService.search(query);
   }
-  
+
   @ApiOperation({ summary: 'Get All Albums' })
   @ApiStandardResponses()
   @Get()

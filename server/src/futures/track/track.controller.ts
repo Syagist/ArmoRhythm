@@ -14,7 +14,7 @@ import { CreateTrackDto } from './dto/create-track.dto';
 import { Types } from 'mongoose';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import ObjectId = Types.ObjectId;
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ApiStandardResponses } from 'src/common/decorators/api-response.decorator';
 
 @ApiTags('tracks')
@@ -29,16 +29,9 @@ export class TrackController {
     @Body() dto: CreateTrackDto,
     @Body('artistIds') artistIds: string[],
     @Body('albumId') albumId: string,
-
   ) {
-    console.log('Received files:', files);
-    console.log('DTO:', dto);
-    const { picture, audio } = files;
-    return this.trackService.create(
-      dto,
-      artistIds,
-      albumId,
-    );
+    const { audio } = files;
+    return this.trackService.create(dto, audio[0], artistIds, albumId);
   }
 
   @ApiOperation({ summary: 'Search Tracks' })

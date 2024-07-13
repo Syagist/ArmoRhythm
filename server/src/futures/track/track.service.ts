@@ -13,18 +13,22 @@ export class TrackService {
     @InjectModel(Track.name) private trackModel: Model<Track>,
     @InjectModel(Artist.name) private artistModel: Model<Artist>,
     private fileService: FileService,
-  ) { }
+  ) {}
 
   async create(
     dto: CreateTrackDto,
+    audio,
     artistIds: string[],
     albumId: string,
   ): Promise<Track> {
     const castedAlbumId = new Types.ObjectId(albumId);
+    const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
+
     const track = await this.trackModel.create({
       ...dto,
       listens: 0,
-      artists: ['65e185b34e390c07443d36fa','65e185b34e390c07443d36fa'],
+      audio: audioPath,
+      artists: artistIds,
       album: castedAlbumId,
     });
     return track;

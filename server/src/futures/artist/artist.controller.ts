@@ -14,13 +14,19 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { Types } from 'mongoose';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import ObjectId = Types.ObjectId;
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ApiStandardResponses } from 'src/common/decorators/api-response.decorator';
 
 @ApiTags('artists')
 @Controller('/artists')
 export class ArtistController {
-  constructor(private artistService: ArtistService) { }
+  constructor(private artistService: ArtistService) {}
 
   @ApiOperation({ summary: 'Create Artist' })
   @ApiStandardResponses()

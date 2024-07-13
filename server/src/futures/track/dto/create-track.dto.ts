@@ -7,16 +7,19 @@ export class CreateTrackDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-  
-  @ApiProperty({ example: 'Welcome to the hotel California', description: 'Track lyrics' })
+
+  @ApiProperty({
+    example: 'Welcome to the hotel California',
+    description: 'Track lyrics',
+  })
   @IsString()
   @ApiPropertyOptional()
   text: string;
 
-  @ApiProperty({ type: 'file', format: 'binary', description: 'Track' })
-  audio: File;
-
-  @ApiProperty({ example: ['65e185b34e390c07443d36fa','65e185b34e390c07443d36fa'], description: 'Enter Artist Id' })
+  @ApiProperty({
+    example: ['65e185b34e390c07443d36fa', '65e185b34e390c07443d36fa'],
+    description: 'Enter Artist Id',
+  })
   @ApiPropertyOptional()
   artistIds: ObjectId[];
 
