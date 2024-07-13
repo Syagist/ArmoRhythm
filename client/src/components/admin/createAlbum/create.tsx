@@ -9,19 +9,21 @@ import { useInput } from "@/hooks/useInput";
 import { host } from "@/api";
 import ArtistSelection from "@/components/admin/components/ArtistSelection";
 import { IArtist } from "@/types/artist";
+import {UploadedFileDataType} from "@/types/components/fileUploadProps";
 
 const CreateAlbum = () => {
-  const [picture, setPicture] = useState(null);
+  const [fileData, setFileData] = useState<UploadedFileDataType|null>(null);
   const name = useInput("");
   const [artists, setArtists] = useState([]);
 
   const createAlbum = () => {
     const formData = new FormData();
     formData.append("name", name.value);
-    formData.append("picture", picture);
+    formData.append("picture", fileData.file);
     artists.forEach((artist) => {
       formData.append("artistIds", artist._id);
     });
+
     host
       .post(`/albums`, formData)
       .then((resp) => {
@@ -42,9 +44,10 @@ const CreateAlbum = () => {
           <ArtistSelection onArtistChanged={handleArtists} />
 
           <TextField {...name} style={{ marginTop: 10 }} label={"Album name"} />
-          <FileUpload setFile={setPicture} accept="image/*">
+          <FileUpload setFileData={setFileData} accept="image/*">
             <Button>Upload cover</Button>
           </FileUpload>
+
           <Button onClick={createAlbum}>create Album</Button>
         </Box>
       </Card>

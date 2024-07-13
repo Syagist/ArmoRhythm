@@ -3,23 +3,22 @@ import { FileUploadProps } from "../../types/components/fileUploadProps";
 import fuStyles from "@/styles/FileUpload.module.scss";
 
 const FileUpload: React.FC<FileUploadProps> = ({
-  setFile,
+   setFileData,
   accept,
   children,
 }) => {
   const ref = useRef<HTMLInputElement>();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files[0];
 
-    if (selectedFile) {
+    if ( e.target.files[0]) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
         const base64Result = reader.result as string;
-        setFile({ file: selectedFile, base64: base64Result });
+        setFileData({ file: e.target.files[0], base64: base64Result });
       };
 
-      reader.readAsDataURL(selectedFile);
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 

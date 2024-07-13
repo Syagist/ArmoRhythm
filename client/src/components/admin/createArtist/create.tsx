@@ -7,14 +7,15 @@ import Box from '@mui/material/Box';
 import FileUpload from "@/components/fileUpload/FileUpload";
 import {useInput} from "@/hooks/useInput";
 import {host} from "@/api";
+import {UploadedFileDataType} from "@/types/components/fileUploadProps";
 const CreateArtist = () => {
-    const [picture, setPicture] = useState(null)
+    const [fileData, setFileData] = useState<UploadedFileDataType|null>(null);
     const name = useInput('')
 
     const createArtist = () => {
         const formData = new FormData()
         formData.append('name', name.value)
-        formData.append('picture', picture)
+        formData.append("picture", fileData.file);
         host.post(`/artists`, formData)
             .then(resp => {
                 console.log(resp)
@@ -33,7 +34,7 @@ const CreateArtist = () => {
                         style={{marginTop: 10}}
                         label={"Artist name"}
                     />
-                    <FileUpload setFile={setPicture} accept="image/*">
+                    <FileUpload setFileData={setFileData} accept="image/*">
                         <Button>Upload cover</Button>
                     </FileUpload>
                     <Button onClick={createArtist}>create artist</Button>

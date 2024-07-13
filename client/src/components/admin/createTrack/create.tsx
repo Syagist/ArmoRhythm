@@ -13,11 +13,11 @@ import ArtistSelection from "@/components/admin/components/ArtistSelection";
 import AlbumSelection from "@/components/admin/components/AlbumSelection";
 import { IArtist } from "@/types/artist";
 import { IAlbum } from "@/types/album";
+import {UploadedFileDataType} from "@/types/components/fileUploadProps";
 
 const CreateTrack = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [picture, setPicture] = useState(null);
-  const [audio, setAudio] = useState(null);
+  const [fileData, setFileData] = useState<UploadedFileDataType|null>(null);
   const name = useInput("");
   const text = useInput("");
   const [artists, setArtists] = useState([]);
@@ -30,8 +30,7 @@ const CreateTrack = () => {
       const formData = new FormData();
       formData.append("name", name.value);
       formData.append("text", text.value);
-      formData.append("picture", picture);
-      formData.append("audio", audio);
+      formData.append("audio", fileData.file);
       artists.forEach((artist) => {
         formData.append("artistIds", artist._id);
       });
@@ -91,13 +90,8 @@ const CreateTrack = () => {
               </Grid>
             )}
             {activeStep === 1 && (
-              <FileUpload setFile={setPicture} accept="image/*">
-                <Button>Upload cover</Button>
-              </FileUpload>
-            )}
-            {activeStep === 2 && (
-              <FileUpload setFile={setAudio} accept="audio/*">
-                <Button>Upload music file</Button>
+                <FileUpload setFileData={setFileData} accept="audio/*">
+                <Button>Upload audio</Button>
               </FileUpload>
             )}
           </StepWrapper>
