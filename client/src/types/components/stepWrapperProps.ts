@@ -1,4 +1,4 @@
 export interface StepWrapperProps {
-    activeStep: number;
-    children:any;
+  activeStep: number;
+  children: any;
 }

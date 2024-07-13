@@ -13,11 +13,11 @@ import ArtistSelection from "@/components/admin/components/ArtistSelection";
 import AlbumSelection from "@/components/admin/components/AlbumSelection";
 import { IArtist } from "@/types/artist";
 import { IAlbum } from "@/types/album";
-import {UploadedFileDataType} from "@/types/components/fileUploadProps";
+import { UploadedFileDataType } from "@/types/components/fileUploadProps";
 
 const CreateTrack = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [fileData, setFileData] = useState<UploadedFileDataType|null>(null);
+  const [fileData, setFileData] = useState<UploadedFileDataType | null>(null);
   const name = useInput("");
   const text = useInput("");
   const [artists, setArtists] = useState([]);
@@ -90,7 +90,7 @@ const CreateTrack = () => {
               </Grid>
             )}
             {activeStep === 1 && (
-                <FileUpload setFileData={setFileData} accept="audio/*">
+              <FileUpload setFileData={setFileData} accept="audio/*">
                 <Button>Upload audio</Button>
               </FileUpload>
             )}

@@ -1,10 +1,10 @@
-import {ITrack} from "../track";
+import { ITrack } from "../track";
 
 export interface TrackItemProps {
-    track: ITrack;
-    active?: boolean;
+  track: ITrack;
+  active?: boolean;
 }
 
 export interface TrackListProps {
-    tracks: ITrack[]
+  tracks: ITrack[];
 }

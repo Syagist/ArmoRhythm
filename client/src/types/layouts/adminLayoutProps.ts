@@ -1,3 +1,3 @@
 export interface AdminLayoutProps {
-    children:any
+  children: any;
 }

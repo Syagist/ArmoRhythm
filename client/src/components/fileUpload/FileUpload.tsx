@@ -3,14 +3,13 @@ import { FileUploadProps } from "../../types/components/fileUploadProps";
 import fuStyles from "@/styles/FileUpload.module.scss";
 
 const FileUpload: React.FC<FileUploadProps> = ({
-   setFileData,
+  setFileData,
   accept,
   children,
 }) => {
   const ref = useRef<HTMLInputElement>();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    if ( e.target.files[0]) {
+    if (e.target.files[0]) {
       const reader = new FileReader();
 
       reader.onloadend = () => {

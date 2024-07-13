@@ -9,10 +9,10 @@ import { useInput } from "@/hooks/useInput";
 import { host } from "@/api";
 import ArtistSelection from "@/components/admin/components/ArtistSelection";
 import { IArtist } from "@/types/artist";
-import {UploadedFileDataType} from "@/types/components/fileUploadProps";
+import { UploadedFileDataType } from "@/types/components/fileUploadProps";
 
 const CreateAlbum = () => {
-  const [fileData, setFileData] = useState<UploadedFileDataType|null>(null);
+  const [fileData, setFileData] = useState<UploadedFileDataType | null>(null);
   const name = useInput("");
   const [artists, setArtists] = useState([]);
 
