@@ -12,11 +12,9 @@ export interface ITrack {
   name: string;
   text: string;
   listens: number;
-  picture: string;
   audio: string;
   artists: IArtist[];
   album: IAlbum;
-  comments: IComment[];
 }
 
 export interface TrackState {

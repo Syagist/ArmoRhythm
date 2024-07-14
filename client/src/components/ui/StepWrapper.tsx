@@ -7,7 +7,7 @@ import Stepper from "@mui/material/Stepper";
 import Container from "@mui/material/Container";
 import { StepWrapperProps } from "@/types/components/stepWrapperProps";
 
-const steps = ["Track Ifo", "Upload Cover", "Upload createTrack"];
+const steps = ["Track Info", "Upload createTrack"];
 
 const StepWrapper: React.FC<StepWrapperProps> = ({ activeStep, children }) => {
   return (
@@ -19,11 +19,7 @@ const StepWrapper: React.FC<StepWrapperProps> = ({ activeStep, children }) => {
           </Step>
         ))}
       </Stepper>
-      <Grid
-        container
-        justifyContent="center"
-        style={{ margin: "70px 0 ", height: 270 }}
-      >
+      <Grid container justifyContent="center">
         <Card style={{ width: 600 }}>{children}</Card>
       </Grid>
     </Container>

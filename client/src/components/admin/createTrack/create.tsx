@@ -34,7 +34,6 @@ const CreateTrack = () => {
       artists.forEach((artist) => {
         formData.append("artistIds", artist._id);
       });
-
       formData.append("albumId", album._id);
 
       host

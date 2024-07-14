@@ -1,5 +1,4 @@
-import React from "react";
-import { ITrack } from "../../types/track";
+import React, { useEffect } from "react";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
@@ -15,6 +14,9 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
   const router = useRouter();
   const { playTrack, pauseTrack, setActiveTrack } = useActions();
 
+  useEffect(() => {
+    console.log(track);
+  }, [track]);
   const play = (e) => {
     e.stopPropagation();
     setActiveTrack(track);
@@ -29,7 +31,7 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
       <IconButton onClick={play}>
         {!active ? <PlayArrow /> : <Pause />}
       </IconButton>
-      <img width={70} height={70} src={`${BASE_API}/${track.picture}`} />
+      <img width={70} height={70} src={`${BASE_API}/${track.album.picture}`} />
       <Grid
         container
         direction="column"
