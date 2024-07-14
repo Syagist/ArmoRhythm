@@ -33,11 +33,14 @@
     "code-config": "^1.0.55",
     "dotenv": "^16.4.4",
     "mongoose": "^8.1.2",
+    "music-metadata": "^7.13.0",
+    "node-fetch": "^2.7.0",
     "redis": "^4.6.13",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "socket.io": "^4.7.4",
     "swagger-ui-express": "^5.0.1",
+    "unzipper": "^0.12.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
